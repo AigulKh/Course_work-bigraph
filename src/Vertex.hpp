@@ -9,7 +9,6 @@ class Vertex {
         T name;
         bool part;
         R machine_type;
-        vector <Vertex> adjacent_vertices;
 
     public:
         Vertex(T name, bool part, R machine_type) {
@@ -20,10 +19,7 @@ class Vertex {
         
         Vertex() { }
 
-        ~Vertex() { 
-            if (!this->adjacent_vertices.empty())
-                this->adjacent_vertices.clear();
-        }
+        ~Vertex() { }
 
         T getName() {
             return this->name;
@@ -47,13 +43,5 @@ class Vertex {
 
         void setType(R machine_type) {
             this->machine_type = machine_type;
-        }
-
-        void addAdjacentVertex(Vertex a) {
-            this->adjacent_vertices.insert(this->adjacent_vertices.end(), a);
-        }
-
-        vector <Vertex> getAdjacentVertex() {
-            return this->adjacent_vertices;
         }
 };
