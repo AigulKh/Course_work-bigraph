@@ -1,55 +1,59 @@
 #include <string>
 #include <iostream>
+#include <vector>
 using namespace std;
 
+template  <typename T, typename R>
 class Vertex {
     private:    
-        size_t index;
-        bool driver;
-        string machine_type;
-        bool baby_chair;
+        T name;
+        bool part;
+        R machine_type;
+        vector <Vertex> adjacent_vertices;
 
     public:
-        Vertex(size_t index, bool driver, string machine_type, bool baby_chair) {
-            this->index = index;
-            this->driver = driver;
+        Vertex(T name, bool part, R machine_type) {
+            this->name = name;
+            this->part = part;
             this->machine_type = machine_type;
-            this->baby_chair = baby_chair;
         }
         
         Vertex() { }
 
-        ~Vertex() { }
-
-        size_t getIndex() {
-            return index;
+        ~Vertex() { 
+            if (!this->adjacent_vertices.empty())
+                this->adjacent_vertices.clear();
         }
 
-        void setIndex(size_t index) {
-            this->index = index;
+        T getName() {
+            return this->name;
         }
 
-        bool getDriver() {
-            return driver;
+        void setName(T name) {
+            this->name = name;
         }
 
-        void setDriver(bool driver) {
-            this->driver = driver;
+        bool getPart() {
+            return this->part;
         }
 
-        string getType() {
-            return machine_type;
+        void setPart(bool part) {
+            this->part = part;
         }
 
-        void setType(string machine_type) {
+        R getType() {
+            return this->machine_type;
+        }
+
+        void setType(R machine_type) {
             this->machine_type = machine_type;
         }
 
-        bool getChair() {
-            return baby_chair;
+        void addAdjacentVertex(Vertex a) {
+            this->adjacent_vertices.insert(this->adjacent_vertices.end(), a);
         }
 
-        void setChair(bool baby_chair) {
-            this->baby_chair = baby_chair;
+        vector <Vertex> getAdjacentVertex() {
+            return this->adjacent_vertices;
         }
 };

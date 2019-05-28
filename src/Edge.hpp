@@ -1,13 +1,14 @@
-#include "Vertex.hpp"
 #include <random>
+#include "Vertex.hpp"
 
+template  <typename T, typename R>
 class Edge {
     private:
-        Vertex x;
-        Vertex y;
+        Vertex <T, R> x;
+        Vertex <T, R> y;
         int weight;
     public:
-        Edge(Vertex x, Vertex y) {
+        Edge(Vertex <T, R> x, Vertex <T, R> y) {
             this->x = x;
             this->y = y;
             this->weight = 1 + rand() % 100;
@@ -15,11 +16,11 @@ class Edge {
 
         ~Edge() { }
 
-        Vertex getX() {
+        Vertex <T, R> getX() {
             return this->x;
         }
 
-        Vertex getY() {
+        Vertex <T, R> getY() {
             return this->y;
         }
 
