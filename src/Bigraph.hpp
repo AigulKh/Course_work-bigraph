@@ -1,4 +1,5 @@
 #include <fstream>
+#include <algorithm>
 #include "Edge.hpp"
 using namespace std;
 
@@ -8,8 +9,7 @@ class Bigraph {
         vector <Vertex <T, R>> V;
         vector <Edge <T, R>> E;
     public:
-        Bigraph() {
-        }
+        Bigraph() { }
 
         ~Bigraph() {
             if (!V.empty())
@@ -37,18 +37,14 @@ class Bigraph {
             V.push_back(v);
         }
         
-        void delVertex(Vertex <T, R> v) {
-            for (size_t j = 0; j < E.size(); j++) {
-                for (size_t i = 0; i < E.size(); i++) {
-                    if (v.getName() == E[i].getX().getName() || v.getName() == E[i].getY().getName())
-                        E.erase(E.begin() + i);
+        void delVertex(Vertex <T, R> v) {            
+            for (size_t i = 0; i < E.size(); i++) {
+                if (E[i].getX() == v || E[i].getY() == v) {
+                    E.erase(remove(E.begin(), E.end(), E[i]), E.end());
+                    i--;
                 }
             }
-
-            for (size_t i = 0; i < V.size(); i++) {
-                if (V[i].getName() == v.getName())
-                    V.erase(V.begin() + i);
-            }
+            V.erase(remove(V.begin(), V.end(), v), V.end());
         }
 
         void addEdge(Edge <T, R> e) {
@@ -56,10 +52,7 @@ class Bigraph {
         }
 
         void delEdge(Edge <T, R> e) {
-            for (size_t i = 0; i < E.size(); i++) {
-                if (E[i].getX().getName() == e.getX().getName() && E[i].getY().getName() == e.getY().getName())
-                    E.erase(E.begin() + i);
-            }
+            E.erase(remove(E.begin(), E.end(), e), E.end());
         }
 
         bool isBigraph_() {
@@ -72,7 +65,7 @@ class Bigraph {
 
         bool checkEdge(Vertex <T, R> a, Vertex <T, R> b) {
             for (size_t i = 0; i < E.size(); i++) {
-                if (E[i].getX().getName() == a.getName() && E[i].getY().getName() == b.getName())
+                if (E[i].getX() == a && E[i].getY() == b)
                     return true;
             }
             return false;
@@ -80,7 +73,7 @@ class Bigraph {
 
         bool checkVertex(vector <Vertex <T, R>> vec, Vertex <T, R> v) {
             for (size_t i = 0; i < vec.size(); i++) {
-                if (vec[i].getName() == v.getName())
+                if (vec[i] == v)
                     return true;
             }
             return false;
@@ -99,31 +92,28 @@ class Bigraph {
         }
 
         vector <Vertex <T, R>> deleteVertex_(Vertex <T, R> v, vector <Vertex <T, R>> white) {
-            for (size_t i = 0; i < white.size(); i++) {
-                if (white[i].getName() == v.getName())
-                    white.erase(white.begin() + i);
-            }
+            white.erase(remove(white.begin(), white.end(), v), white.end());
             return white;
         }
 
-        void markVertex(vector <Vertex <T, R>> white, vector <Vertex <T, R>> &even, vector <Vertex <T, R>> &odd, Vertex <T, R> v) {
-            if (white.size() % 2 == 0) 
+        void markVertex(size_t counter, vector <Vertex <T, R>> &even, vector <Vertex <T, R>> &odd, Vertex <T, R> v) {
+            if (counter % 2 == 0) 
                 even.push_back(v);
             else
                 odd.push_back(v);
         }
 
-        void DFS(Vertex <T, R> v, vector <Vertex <T, R>> &white, vector <Vertex <T, R>> &even, vector <Vertex <T, R>> &odd) { 
+        void DFS(Vertex <T, R> v, vector <Vertex <T, R>> &white, vector <Vertex <T, R>> &even, vector <Vertex <T, R>> &odd, size_t counter) {
             for (size_t i = 0; i < E.size(); i++) {
-                if (E[i].getX().getName() == v.getName() && checkVertex(white, E[i].getY())) {
-                    markVertex(white, even, odd, E[i].getY());
+                if (E[i].getX() == v && checkVertex(white, E[i].getY())) {
+                    markVertex(counter, even, odd, E[i].getY());
                     white = deleteVertex_(E[i].getY(), white);
-                    DFS(E[i].getY(), white, even, odd);
+                    DFS(E[i].getY(), white, even, odd, counter + 1);
                 }
-                if (E[i].getY().getName() == v.getName() && checkVertex(white, E[i].getX())) {
-                    markVertex(white, even, odd, E[i].getX());
+                if (E[i].getY() == v && checkVertex(white, E[i].getX())) {
+                    markVertex(counter, even, odd, E[i].getX());
                     white = deleteVertex_(E[i].getX(), white);
-                    DFS(E[i].getX(), white, even, odd);
+                    DFS(E[i].getX(), white, even, odd, counter + 1);
                 }
             }
         }
@@ -135,12 +125,13 @@ class Bigraph {
             for (size_t i = 0; i < V.size(); i++)
                 white.push_back(V[i]);
 
+            size_t counter = 0;
             while (!white.empty()) {
                 if (checkVertex(white, white[0])) {
                     Vertex <T, R> v = white[0];
-                    markVertex(white, even, odd, v);
+                    markVertex(counter, even, odd, v);
                     white = deleteVertex_(v, white);
-                    DFS(v, white, even, odd);
+                    DFS(v, white, even, odd, counter + 1);
                 }
             }
 

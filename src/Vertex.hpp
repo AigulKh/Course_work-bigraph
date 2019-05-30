@@ -44,4 +44,8 @@ class Vertex {
         void setType(R machine_type) {
             this->machine_type = machine_type;
         }
+
+        bool operator==(Vertex <T, R> v) {
+            return (this->name == v.getName() && this->part == v.getPart() && this->machine_type == v.getType());
+        }
 };

@@ -27,4 +27,9 @@ class Edge {
         int getWeight() {
             return this->weight;
         }
+
+        bool operator==(Edge <T, R> e) {
+            return ((this->x == e.getX() && this->y == e.getY()) || (this->x == e.getY() && this->y == e.getX()));
+        }
+
 };
