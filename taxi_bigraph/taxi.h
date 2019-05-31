@@ -15,6 +15,11 @@ public:
 private:
 	Ui::TaxiClass ui;
 
+	// Установить активность для элементов управления админа
+	void checkAdminControlActivity();
+	// Обновить активность элементов управления админа по выходу из состояния добавления новой машины
+	void exitAddNewCar();
+
 	private slots:
 		void userMode();		// Режим пользователя
 		void adminMode();		// Режим администратора
