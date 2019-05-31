@@ -44,13 +44,17 @@ Taxi::~Taxi()
 void Taxi::userMode()
 {
 	// Сменить текущую активную страницу mainStackedWidget на 1
+	ui.mainStackedWidget->setCurrentIndex(1);
 	// Сменить страницу stackedWidget на 1
+	ui.stackedWidget->setCurrentIndex(1);
 }
 
 void Taxi::adminMode()
 {
 	// Сменить текущую активную страницу mainStackedWidget на 1
+	ui.mainStackedWidget->setCurrentIndex(1);
 	// Сменить страницу stackedWidget на 0
+	ui.stackedWidget->setCurrentIndex(0);
 
 	// Установить контроль над управлением элементов в зависимости от текущего графа
 	checkAdminControlActivity();
@@ -58,21 +62,19 @@ void Taxi::adminMode()
 
 void Taxi::addNewCar()
 {
-	// Сделать неактивными кнопки работы с заказами
-	// Сделать неактивной кнопку добавления новой машины
-	// Сделать активным групбокс с добавлением новой машины
+	toggleAddNewCarActivity(true);
 }
 
 void Taxi::createCar()
 {
 	// Создать узел графа в памяти
 	// Отрисовать новый узел
-	exitAddNewCar();
+	toggleAddNewCarActivity(false);
 }
 
 void Taxi::cancelAddCar()
 {
-	exitAddNewCar();
+	toggleAddNewCarActivity(false);
 }
 
 void Taxi::deleteOrder()
@@ -92,6 +94,8 @@ void Taxi::clearAll()
 {
 	// Очистить граф в памяти
 	// Очистить отрисовку
+	// Установить активность кнопок
+	checkAdminControlActivity();
 }
 
 void Taxi::saveGraph()
@@ -103,11 +107,13 @@ void Taxi::saveExit()
 {
 	// Записать текущий граф
 	// Выйти из программы (или на стартовый экран?)
+	ui.mainStackedWidget->setCurrentIndex(0);
 }
 
 void Taxi::exitApp()
 {
 	// Выйти из программы или на стартовый экран (без сохранения)
+	ui.mainStackedWidget->setCurrentIndex(0);
 }
 
 void Taxi::createOrder()
@@ -122,11 +128,18 @@ void Taxi::createOrder()
 */
 void Taxi::checkAdminControlActivity()
 {
+	// Если есть заказ..
+	// Кнопки работы с заказами активны
+	// Иначе..
+	// Кнопки работы с заказами неактивны
 }
 
-void Taxi::exitAddNewCar()
+void Taxi::toggleAddNewCarActivity(bool isCreating)
 {
 	// Сделать неактивным групбокс с добавлением новой машины
+	ui.addMachineGroupBox->setEnabled(!isCreating);
 	// Сделать активной кнопку добавления новой машины
+	ui.addNewCarButton->setEnabled(isCreating);
 	// Сделать активной кнопки работы с заказами
+	ui.orderControlGroupBox->setEnabled(isCreating);
 }

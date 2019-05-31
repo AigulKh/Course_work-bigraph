@@ -17,8 +17,8 @@ private:
 
 	// Установить активность для элементов управления админа
 	void checkAdminControlActivity();
-	// Обновить активность элементов управления админа по выходу из состояния добавления новой машины
-	void exitAddNewCar();
+	// Обновить активность элементов управления админа по состоянию добавления новой машины
+	void toggleAddNewCarActivity(bool isCreating);
 
 	private slots:
 		void userMode();		// Режим пользователя
