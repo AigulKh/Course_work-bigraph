@@ -29,7 +29,7 @@ Taxi::Taxi(QWidget *parent, Qt::WFlags flags)
 	connect(ui.exitButtonAdmin,SIGNAL(clicked()),this,SLOT(exitApp()));
 
 	connect(ui.createOrderButton,SIGNAL(clicked()),this,SLOT(createOrder()));
-	connect(ui.exitButtonAdmin,SIGNAL(clicked()),this,SLOT(exitApp()));
+	connect(ui.exitButtonUser,SIGNAL(clicked()),this,SLOT(exitApp()));
 }
 
 Taxi::~Taxi()
@@ -47,6 +47,8 @@ void Taxi::userMode()
 	ui.mainStackedWidget->setCurrentIndex(1);
 	// Сменить страницу stackedWidget на 1
 	ui.stackedWidget->setCurrentIndex(1);
+	// Поставить тип машины в чек-боксе на базовый
+	ui.carTypeUser->setCurrentIndex(0);
 }
 
 void Taxi::adminMode()
@@ -132,14 +134,17 @@ void Taxi::checkAdminControlActivity()
 	// Кнопки работы с заказами активны
 	// Иначе..
 	// Кнопки работы с заказами неактивны
+
+	// Установить тип машины на базовый
+	ui.carTypeAdmin->setCurrentIndex(0);
 }
 
 void Taxi::toggleAddNewCarActivity(bool isCreating)
 {
-	// Сделать неактивным групбокс с добавлением новой машины
-	ui.addMachineGroupBox->setEnabled(!isCreating);
-	// Сделать активной кнопку добавления новой машины
-	ui.addNewCarButton->setEnabled(isCreating);
-	// Сделать активной кнопки работы с заказами
-	ui.orderControlGroupBox->setEnabled(isCreating);
+	// Обновить активность групбокса с добавлением новой машины
+	ui.addMachineGroupBox->setEnabled(isCreating);
+	// Обновить активность кнопки добавления новой машины
+	ui.addNewCarButton->setEnabled(!isCreating);
+	// Обновить активность кнопок работы с заказами
+	ui.orderControlGroupBox->setEnabled(!isCreating);
 }
