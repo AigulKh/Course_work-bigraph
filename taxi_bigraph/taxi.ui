@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>575</width>
-    <height>434</height>
+    <width>607</width>
+    <height>450</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>607</width>
+    <height>450</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Заказ такси</string>
@@ -121,142 +127,170 @@
         <item row="0" column="1">
          <widget class="QStackedWidget" name="stackedWidget">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="page_3">
-           <layout class="QGridLayout" name="gridLayout_7">
-            <item row="0" column="0">
-             <layout class="QGridLayout" name="gridLayout_6">
-              <item row="0" column="0">
-               <widget class="QPushButton" name="addNewCarButton">
-                <property name="text">
-                 <string>Добавить машину</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QGroupBox" name="addMachineGroupBox">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="title">
-                 <string>Добавление машины</string>
-                </property>
-                <layout class="QGridLayout" name="gridLayout_5">
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label">
-                   <property name="text">
-                    <string>Выберите тип машины:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QComboBox" name="carTypeAdmin">
-                   <item>
+           <widget class="QWidget" name="">
+            <property name="geometry">
+             <rect>
+              <x>9</x>
+              <y>10</y>
+              <width>273</width>
+              <height>335</height>
+             </rect>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_6">
+             <item row="0" column="0">
+              <layout class="QVBoxLayout" name="verticalLayout_3">
+               <item>
+                <widget class="QPushButton" name="addNewCarButton">
+                 <property name="text">
+                  <string>Добавить машину</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QGroupBox" name="addMachineGroupBox">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="title">
+                  <string>Добавление машины</string>
+                 </property>
+                 <layout class="QGridLayout" name="gridLayout_5">
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label">
                     <property name="text">
-                     <string>Эконом</string>
+                     <string>Выберите тип машины:</string>
                     </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>Комфорт</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>Бизнес</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>Минивэн</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>Детский</string>
-                    </property>
-                   </item>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item row="1" column="0">
-             <widget class="QGroupBox" name="orderControlGroupBox">
-              <property name="title">
-               <string>Операции с заказами</string>
-              </property>
-              <layout class="QGridLayout" name="gridLayout_8">
-               <item row="0" column="0">
-                <layout class="QVBoxLayout" name="verticalLayout">
-                 <item>
-                  <widget class="QPushButton" name="deleteOrderButton">
-                   <property name="text">
-                    <string>Удалить заказ</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="assignOrderButton">
-                   <property name="text">
-                    <string>Назначить заказ</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="verticalSpacer">
-                   <property name="orientation">
-                    <enum>Qt::Vertical</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>20</width>
-                     <height>40</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="clearAllButton">
-                   <property name="text">
-                    <string>Очистить схему</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QComboBox" name="carTypeAdmin">
+                    <item>
+                     <property name="text">
+                      <string>Эконом</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Комфорт</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Бизнес</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Минивэн</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Детский</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                  <item row="2" column="0">
+                   <layout class="QHBoxLayout" name="horizontalLayout_3">
+                    <item>
+                     <widget class="QPushButton" name="createCarButton">
+                      <property name="text">
+                       <string>Добавить</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="cancelAddCarButton">
+                      <property name="text">
+                       <string>Отмена</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                 </layout>
+                </widget>
                </item>
               </layout>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <layout class="QHBoxLayout" name="horizontalLayout">
-              <item>
-               <widget class="QPushButton" name="saveButton">
-                <property name="text">
-                 <string>Сохранить</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="saveAndExitButton">
-                <property name="text">
-                 <string>Сохранить и выйти</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="exitButtonAdmin">
-                <property name="text">
-                 <string>Выйти</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-           </layout>
+             </item>
+             <item row="1" column="0">
+              <widget class="QGroupBox" name="orderControlGroupBox">
+               <property name="title">
+                <string>Операции с заказами</string>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_8">
+                <item row="0" column="0">
+                 <layout class="QVBoxLayout" name="verticalLayout">
+                  <item>
+                   <widget class="QPushButton" name="deleteOrderButton">
+                    <property name="text">
+                     <string>Удалить заказ</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="assignOrderButton">
+                    <property name="text">
+                     <string>Назначить заказ</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="clearAllButton">
+                    <property name="text">
+                     <string>Очистить схему</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <layout class="QHBoxLayout" name="horizontalLayout">
+               <item>
+                <widget class="QPushButton" name="saveButton">
+                 <property name="text">
+                  <string>Сохранить</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="saveAndExitButton">
+                 <property name="text">
+                  <string>Сохранить и выйти</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="exitButtonAdmin">
+                 <property name="text">
+                  <string>Выйти</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
           </widget>
           <widget class="QWidget" name="page_4">
            <layout class="QGridLayout" name="gridLayout_10">
@@ -273,10 +307,10 @@
                <string>Сделайте заказ</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_9">
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_2">
+               <item row="2" column="0">
+                <widget class="QPushButton" name="createOrderButton">
                  <property name="text">
-                  <string>Выберите тип машины:</string>
+                  <string>Оформить заказ</string>
                  </property>
                 </widget>
                </item>
@@ -309,10 +343,10 @@
                  </item>
                 </widget>
                </item>
-               <item row="2" column="0">
-                <widget class="QPushButton" name="createOrderButton">
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_2">
                  <property name="text">
-                  <string>Оформить заказ</string>
+                  <string>Выберите тип машины:</string>
                  </property>
                 </widget>
                </item>
@@ -357,7 +391,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>575</width>
+     <width>607</width>
      <height>21</height>
     </rect>
    </property>
