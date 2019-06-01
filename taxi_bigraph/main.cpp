@@ -15,9 +15,6 @@ int main(int argc, char *argv[])
 
     qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
 
-    GraphWidget widget;
-    widget.show();
-
     Taxi w;
     w.show();
     return a.exec();

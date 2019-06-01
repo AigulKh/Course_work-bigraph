@@ -365,7 +365,7 @@
          </widget>
         </item>
         <item row="0" column="0">
-         <widget class="QGraphicsView" name="graphicsView">
+         <widget class="GraphWidget" name="graphicsView">
           <property name="minimumSize">
            <size>
             <width>100</width>
