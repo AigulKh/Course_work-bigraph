@@ -70,6 +70,7 @@ void Taxi::addNewCar()
 void Taxi::createCar()
 {
     // Создать узел графа в памяти
+    ui.graphicsView->addNode();
     // Отрисовать новый узел
     toggleAddNewCarActivity(false);
 }

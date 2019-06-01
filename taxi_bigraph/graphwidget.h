@@ -54,7 +54,7 @@ public:
     GraphWidget(QWidget *parent = 0);
 
     //void itemMoved();
-
+    void addNode(); // Добавить узел в центр виджета
 protected:
     //void keyPressEvent(QKeyEvent *event);
     void wheelEvent(QWheelEvent *event);
@@ -62,8 +62,8 @@ protected:
     void scaleView(qreal scaleFactor);
 
 private:
-    QList<Node*> nodes;
-    QList<Edge*> edges;
+    QList<Node*> nodes; // Контейнер отрисованных узлов
+    QList<Edge*> edges; // Контейнер отрисованных ребер
 
     void initializeGraph(QGraphicsScene *scene);
 };

@@ -58,7 +58,7 @@ GraphWidget::GraphWidget(QWidget *parent)
     setTransformationAnchor(AnchorUnderMouse);
     scale(qreal(0.9), qreal(0.9));
 
-    initializeGraph(scene);
+    //initializeGraph(scene);
 }
 
 /*void GraphWidget::itemMoved()
@@ -112,6 +112,22 @@ void GraphWidget::scaleView(qreal scaleFactor)
         return;
 
     scale(scaleFactor, scaleFactor);
+}
+
+void GraphWidget::addNode()
+{
+    // Получаем сцену графа
+    QGraphicsScene *scene = this->scene();
+    // Создаем объект узла
+    Node* node = new Node(this);
+    // Добавляем узел на сцену
+    scene->addItem(node);
+    // Задаем узлу позицию в центр виджета
+    node->setPos(0, 0);
+    // Добавляем узел в список узлов графа
+    this->nodes.append(node);
+
+    // TODO физически создать узел графа
 }
 
 void GraphWidget::initializeGraph(QGraphicsScene *scene)
