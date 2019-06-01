@@ -44,6 +44,7 @@
 #include <QtGui/QGraphicsView>
 
 class Node;
+class Edge;
 
 class GraphWidget : public QGraphicsView
 {
@@ -52,17 +53,19 @@ class GraphWidget : public QGraphicsView
 public:
     GraphWidget(QWidget *parent = 0);
 
-    void itemMoved();
+    //void itemMoved();
 
 protected:
-    void keyPressEvent(QKeyEvent *event);
+    //void keyPressEvent(QKeyEvent *event);
     void wheelEvent(QWheelEvent *event);
 
     void scaleView(qreal scaleFactor);
 
 private:
-    int timerId;
-    Node *centerNode;
+    QList<Node*> nodes;
+    QList<Edge*> edges;
+
+    void initializeGraph(QGraphicsScene *scene);
 };
 
 #endif
