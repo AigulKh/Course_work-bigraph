@@ -89,15 +89,15 @@ GraphWidget::GraphWidget(QWidget *parent)
     scene->addItem(new Edge(node8, node7));
     scene->addItem(new Edge(node9, node8));
 
-    node1->setPos(-50, -50);
-    node2->setPos(0, -50);
-    node3->setPos(50, -50);
-    node4->setPos(-50, 0);
+    node1->setPos(-150, -150);
+    node2->setPos(0, -150);
+    node3->setPos(150, -150);
+    node4->setPos(-150, 0);
     centerNode->setPos(0, 0);
-    node6->setPos(50, 0);
-    node7->setPos(-50, 50);
-    node8->setPos(0, 50);
-    node9->setPos(50, 50);
+    node6->setPos(150, 0);
+    node7->setPos(-150, 150);
+    node8->setPos(0, 150);
+    node9->setPos(150, 150);
 }
 
 void GraphWidget::itemMoved()

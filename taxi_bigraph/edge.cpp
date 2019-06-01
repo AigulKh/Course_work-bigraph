@@ -79,8 +79,8 @@ void Edge::adjust()
 
     prepareGeometryChange();
 
-    if (length > qreal(20.)) {
-        QPointF edgeOffset((line.dx() * 10) / length, (line.dy() * 10) / length);
+    if (length > qreal(Node::NODE_WIDTH)) {
+        QPointF edgeOffset((line.dx() * (Node::NODE_WIDTH/2)) / length, (line.dy() * (Node::NODE_HEIGHT/2)) / length);
         sourcePoint = line.p1() + edgeOffset;
         destPoint = line.p2() - edgeOffset;
     } else {
@@ -116,7 +116,7 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
     painter->drawLine(line);
 
     // Draw the arrows
-    double angle = ::acos(line.dx() / line.length());
+    /*double angle = ::acos(line.dx() / line.length());
     if (line.dy() >= 0)
         angle = TwoPi - angle;
 
@@ -127,9 +127,9 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
     QPointF destArrowP1 = destPoint + QPointF(sin(angle - Pi / 3) * arrowSize,
         cos(angle - Pi / 3) * arrowSize);
     QPointF destArrowP2 = destPoint + QPointF(sin(angle - Pi + Pi / 3) * arrowSize,
-        cos(angle - Pi + Pi / 3) * arrowSize);
+        cos(angle - Pi + Pi / 3) * arrowSize);*/
 
     painter->setBrush(Qt::black);
-    painter->drawPolygon(QPolygonF() << line.p1() << sourceArrowP1 << sourceArrowP2);
-    painter->drawPolygon(QPolygonF() << line.p2() << destArrowP1 << destArrowP2);
+    painter->drawPolygon(QPolygonF() << line.p1());// << sourceArrowP1 << sourceArrowP2);
+    painter->drawPolygon(QPolygonF() << line.p2());// << destArrowP1 << destArrowP2);
 }

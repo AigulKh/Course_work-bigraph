@@ -51,6 +51,8 @@ class QGraphicsSceneMouseEvent;
 class Node : public QGraphicsItem
 {
 public:
+    static const int NODE_WIDTH = 50;
+    static const int NODE_HEIGHT = 50;
     Node(GraphWidget *graphWidget);
 
     void addEdge(Edge *edge);
