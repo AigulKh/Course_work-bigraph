@@ -13,8 +13,6 @@ int main(int argc, char *argv[])
     QTextCodec *tc=QTextCodec::codecForName("CP1251");
     QTextCodec::setCodecForCStrings(tc);
 
-    qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
-
     Taxi w;
     w.show();
     return a.exec();

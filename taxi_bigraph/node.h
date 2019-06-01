@@ -59,7 +59,6 @@ public:
     enum { Type = UserType + 1 };
     int type() const { return Type; }
 
-    void calculateForces();
     bool advance();
 
     QRectF boundingRect() const;
