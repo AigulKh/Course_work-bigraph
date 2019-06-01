@@ -38,10 +38,10 @@ private:
         void saveGraph();		// Сохранить граф в файл
         void saveExit();		// Сохранить граф в файл и выйти из программы
         void exitApp();			// Выйти из программы
-        
+
         // Функции пользователя
         void createOrder();		// Создание заказа
-        
+
 };
 
 #endif // TAXI_H
