@@ -3,15 +3,15 @@
 #include <vector>
 using namespace std;
 
-template  <typename T, typename R>
+template  <typename T>
 class Vertex {
     private:    
-        T name;
+        size_t name;
         bool part;
-        R machine_type;
+        T machine_type;
 
     public:
-        Vertex(T name, bool part, R machine_type) {
+        Vertex(size_t name, bool part, T machine_type) {
             this->name = name;
             this->part = part;
             this->machine_type = machine_type;
@@ -21,11 +21,11 @@ class Vertex {
 
         ~Vertex() { }
 
-        T getName() {
+        size_t getName() {
             return this->name;
         }
 
-        void setName(T name) {
+        void setName(size_t name) {
             this->name = name;
         }
 
@@ -37,15 +37,15 @@ class Vertex {
             this->part = part;
         }
 
-        R getType() {
+        T getType() {
             return this->machine_type;
         }
 
-        void setType(R machine_type) {
+        void setType(T machine_type) {
             this->machine_type = machine_type;
         }
 
-        bool operator==(Vertex <T, R> v) {
+        bool operator==(Vertex <T> v) {
             return (this->name == v.getName() && this->part == v.getPart() && this->machine_type == v.getType());
         }
 };

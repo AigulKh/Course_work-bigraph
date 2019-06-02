@@ -1,27 +1,27 @@
 #include "Vertex.hpp"
 
-template  <typename T, typename R>
+template  <typename T>
 class Edge {
     private:
-        Vertex <T, R> x;
-        Vertex <T, R> y;
+        Vertex <T> x;
+        Vertex <T> y;
     public:
-        Edge(Vertex <T, R> x, Vertex <T, R> y) {
+        Edge(Vertex <T> x, Vertex <T> y) {
             this->x = x;
             this->y = y;
         }
 
         ~Edge() {}
 
-        Vertex <T, R> getX() {
+        Vertex <T> getX() {
             return this->x;
         }
 
-        Vertex <T, R> getY() {
+        Vertex <T> getY() {
             return this->y;
         }
 
-        bool operator==(Edge <T, R> e) {
+        bool operator==(Edge <T> e) {
             return ((this->x == e.getX() && this->y == e.getY()) || (this->x == e.getY() && this->y == e.getX()));
         }
 };
