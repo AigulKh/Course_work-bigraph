@@ -47,7 +47,7 @@
 #include "node.h"
 #include "graphwidget.h"
 
-Node::Node(GraphWidget *graphWidget, bool isValid, QString name, bool isCar)
+Node::Node(GraphWidget *graphWidget, int id, bool isValid, QString name, bool isCar)
     : graph(graphWidget)
 {
     setFlag(ItemIsMovable);
@@ -57,6 +57,11 @@ Node::Node(GraphWidget *graphWidget, bool isValid, QString name, bool isCar)
     this->valid = isValid;
     this->name = name;
     this->isCar = isCar;
+    this->id = id;
+}
+
+int Node::getId(){
+    return this->id;
 }
 
 void Node::addEdge(Edge *edge)

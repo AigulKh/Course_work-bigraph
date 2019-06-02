@@ -92,6 +92,9 @@ void Taxi::deleteOrder()
 void Taxi::assignOrder()
 {
     ui.graphicsView->toggleCreateEdgesMode();
+    bool isEnabled = ui.deleteOrderButton->isEnabled();
+    ui.deleteOrderButton->setEnabled(!isEnabled);
+    ui.addNewCarButton->setEnabled(!isEnabled);
 }
 
 void Taxi::clearAll()

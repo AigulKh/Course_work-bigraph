@@ -121,7 +121,7 @@ void GraphWidget::addNode(QString carName)
     // Получаем сцену графа
     QGraphicsScene *scene = this->scene();
     // Создаем объект узла
-    Node* node = new Node(this, true, carName, true);
+    Node* node = new Node(this, generateId(), true, carName, true);
     // Добавляем узел на сцену
     scene->addItem(node);
     // Задаем узлу позицию в центр виджета
@@ -138,7 +138,7 @@ void GraphWidget::toggleCreateEdgesMode()
     // Если вдруг вышли из состояния создания ребер..
     // Нужно очистить возможно хранящийся буферный узел
     if (!this->isCreatingEdges){
-        this->bufNode = new Node(this, false);
+        this->bufNode = new Node(this, generateId(),false);
     }
 }
 
@@ -152,7 +152,7 @@ void GraphWidget::checkNewEdge(Node* pressedNode)
             this->bufNode = pressedNode;
         else{
             // Иначе создаем ребро
-            Edge* newE = new Edge(this->bufNode, pressedNode);
+            Edge* newE = new Edge(this->bufNode, pressedNode, generateId());
             // Получаем сцену графа
             QGraphicsScene *scene = this->scene();
             // Добавляем ребро на сцену
@@ -160,12 +160,12 @@ void GraphWidget::checkNewEdge(Node* pressedNode)
             // Добавляем ребро в список ребер
             this->edges.append(newE);
             // Очищаем узел-источник
-            this->bufNode = new Node(this, false);
+            this->bufNode = new Node(this, generateId(), false);
         }
     }
 }
 
-void GraphWidget::initializeGraph(QGraphicsScene *scene)
+/*void GraphWidget::initializeGraph(QGraphicsScene *scene)
 {
     Node *node1 = new Node(this, false);
     Node *node2 = new Node(this, false);
@@ -207,4 +207,4 @@ void GraphWidget::initializeGraph(QGraphicsScene *scene)
     node7->setPos(-150, 150);
     node8->setPos(0, 150);
     node9->setPos(150, 150);
-}
+}*/

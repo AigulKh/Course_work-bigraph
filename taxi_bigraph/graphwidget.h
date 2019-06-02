@@ -71,6 +71,19 @@ private:
     bool isCreatingEdges;   // Флаг состояния создания ребер
     void initializeGraph(QGraphicsScene *scene);
 
+    /*
+    * Функция по генерации id для объектов
+    * нужна до момента соединения с моделью программы
+    */
+    int counter;
+
+    int generateId(){
+        if(counter>=1000000){
+            counter = 0;
+        }
+        return counter++;
+    }
+
 };
 
 #endif

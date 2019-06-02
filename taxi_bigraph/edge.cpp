@@ -48,15 +48,20 @@
 static const double Pi = 3.14159265358979323846264338327950288419717;
 static double TwoPi = 2.0 * Pi;
 
-Edge::Edge(Node *sourceNode, Node *destNode)
+Edge::Edge(Node *sourceNode, Node *destNode, int id)
     : arrowSize(10)
 {
     setAcceptedMouseButtons(0);
     source = sourceNode;
     dest = destNode;
+    this->id = id;
     source->addEdge(this);
     dest->addEdge(this);
     adjust();
+}
+
+int Edge::getId(){
+    return this->id;
 }
 
 Node *Edge::sourceNode() const

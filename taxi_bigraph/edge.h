@@ -48,12 +48,13 @@ class Node;
 class Edge : public QGraphicsItem
 {
 public:
-    Edge(Node *sourceNode, Node *destNode);
+    Edge(Node *sourceNode, Node *destNode, int id);
 
     Node *sourceNode() const;
     Node *destNode() const;
 
     void adjust();
+    int getId();
 
     enum { Type = UserType + 2 };
     int type() const { return Type; }
@@ -64,6 +65,8 @@ protected:
 
 private:
     Node *source, *dest;
+
+    int id;
 
     QPointF sourcePoint;
     QPointF destPoint;
