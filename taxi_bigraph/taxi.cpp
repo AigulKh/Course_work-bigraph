@@ -69,8 +69,10 @@ void Taxi::addNewCar()
 
 void Taxi::createCar()
 {
+    // Определяем тип создаваемой машины
+    QString carName = ui.carTypeAdmin->currentText();
     // Создать узел графа в памяти
-    ui.graphicsView->addNode();
+    ui.graphicsView->addNode(carName);
     // Отрисовать новый узел
     toggleAddNewCarActivity(false);
 }

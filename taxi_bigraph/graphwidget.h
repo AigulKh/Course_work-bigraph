@@ -54,7 +54,7 @@ public:
     GraphWidget(QWidget *parent = 0);
 
     //void itemMoved();
-    void addNode();     // Добавить узел в центр виджета
+    void addNode(QString carName);     // Добавить узел в центр виджета
     void toggleCreateEdgesMode();   // Перейти в режим создания ребер
     void checkNewEdge(Node* pressedNode);   // Проверить возможность создания ребра
 protected:

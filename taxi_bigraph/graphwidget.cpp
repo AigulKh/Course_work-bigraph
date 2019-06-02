@@ -116,12 +116,12 @@ void GraphWidget::scaleView(qreal scaleFactor)
     scale(scaleFactor, scaleFactor);
 }
 
-void GraphWidget::addNode()
+void GraphWidget::addNode(QString carName)
 {
     // Получаем сцену графа
     QGraphicsScene *scene = this->scene();
     // Создаем объект узла
-    Node* node = new Node(this, true);
+    Node* node = new Node(this, true, carName);
     // Добавляем узел на сцену
     scene->addItem(node);
     // Задаем узлу позицию в центр виджета

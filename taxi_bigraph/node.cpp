@@ -47,7 +47,7 @@
 #include "node.h"
 #include "graphwidget.h"
 
-Node::Node(GraphWidget *graphWidget, bool isValid)
+Node::Node(GraphWidget *graphWidget, bool isValid, QString name)
     : graph(graphWidget)
 {
     setFlag(ItemIsMovable);
@@ -55,6 +55,7 @@ Node::Node(GraphWidget *graphWidget, bool isValid)
     setCacheMode(DeviceCoordinateCache);
     setZValue(-1);
     this->valid = isValid;
+    this->name = name;
 }
 
 void Node::addEdge(Edge *edge)
@@ -96,6 +97,7 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     painter->setBrush(QBrush(QColor(66, 103, 178)));
     painter->setPen(QPen(Qt::black, 0));
     painter->drawEllipse(-NODE_WIDTH/2, -NODE_HEIGHT/2, NODE_WIDTH, NODE_HEIGHT);
+    painter->drawText(boundingRect(), Qt::AlignCenter, this->name);
 }
 
 QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value)

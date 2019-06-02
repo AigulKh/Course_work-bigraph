@@ -55,7 +55,7 @@ public:
     static const int NODE_WIDTH = 50;
     static const int NODE_HEIGHT = 50;
     Node(GraphWidget *graphWidget);
-    Node(GraphWidget *graphWidget, bool isValid = true);
+    Node(GraphWidget *graphWidget, bool isValid = true, QString name = "");
 
     void addEdge(Edge *edge);
     QList<Edge *> edges() const;
@@ -65,6 +65,7 @@ public:
 
     bool advance();
     bool isValid();
+    QString getName();
 
     QRectF boundingRect() const;
     QPainterPath shape() const;
@@ -81,6 +82,7 @@ private:
     QPointF newPos;
     GraphWidget *graph;
     bool valid;
+    QString name;
 
     // Время нажатия и отжатия узла
     QTime pressTime;
