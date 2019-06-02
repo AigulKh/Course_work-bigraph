@@ -47,7 +47,7 @@
 #include "node.h"
 #include "graphwidget.h"
 
-Node::Node(GraphWidget *graphWidget, bool isValid, QString name)
+Node::Node(GraphWidget *graphWidget, bool isValid, QString name, bool isCar)
     : graph(graphWidget)
 {
     setFlag(ItemIsMovable);
@@ -56,6 +56,7 @@ Node::Node(GraphWidget *graphWidget, bool isValid, QString name)
     setZValue(-1);
     this->valid = isValid;
     this->name = name;
+    this->isCar = isCar;
 }
 
 void Node::addEdge(Edge *edge)
@@ -94,7 +95,10 @@ QPainterPath Node::shape() const
 
 void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *)
 {
-    painter->setBrush(QBrush(QColor(66, 103, 178)));
+    if(this->isCar)
+        painter->setBrush(QBrush(QColor(66, 103, 178)));
+    else
+        painter->setBrush(QBrush(QColor(255, 182, 193)));
     painter->setPen(QPen(Qt::black, 0));
     painter->drawEllipse(-NODE_WIDTH/2, -NODE_HEIGHT/2, NODE_WIDTH, NODE_HEIGHT);
     painter->drawText(boundingRect(), Qt::AlignCenter, this->name);
