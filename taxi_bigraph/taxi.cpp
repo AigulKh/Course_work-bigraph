@@ -84,9 +84,10 @@ void Taxi::cancelAddCar()
 
 void Taxi::deleteOrder()
 {
-    // Удалить узел графа в памяти
-    // Удалить узел нарисованного графа
-    // Удалить связанные с ним ребра
+    ui.graphicsView->toggleDeleteOrdersMode();
+    bool isEnabled = ui.assignOrderButton->isEnabled();
+    ui.assignOrderButton->setEnabled(!isEnabled);
+    ui.addNewCarButton->setEnabled(!isEnabled);
 }
 
 void Taxi::assignOrder()

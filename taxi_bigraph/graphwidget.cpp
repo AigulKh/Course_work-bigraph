@@ -59,6 +59,8 @@ GraphWidget::GraphWidget(QWidget *parent)
     scale(qreal(0.9), qreal(0.9));
 
     isCreatingEdges = false;
+    this->isDeletingOrders = false;
+    this->counter = 0;
     this->bufNode = new Node(this, generateId(), false);
     //initializeGraph(scene);
 }
@@ -142,10 +144,15 @@ void GraphWidget::toggleCreateEdgesMode()
     }
 }
 
-void GraphWidget::checkNewEdge(Node* pressedNode)
+void GraphWidget::toggleDeleteOrdersMode()
+{
+    this->isDeletingOrders = !this->isDeletingOrders;
+}
+
+void GraphWidget::checkPressedNode(Node* pressedNode)
 {
     // Если находимся в режиме создания ребер..
-    if(this->isCreatingEdges){
+    if(this->isCreatingEdges&&!this->isDeletingOrders){
         // Если еще нет узла-источника..
         if(!this->bufNode->isValid())
             // Считаем полученный узел таковым
@@ -161,6 +168,45 @@ void GraphWidget::checkNewEdge(Node* pressedNode)
             this->edges.append(newE);
             // Очищаем узел-источник
             this->bufNode = new Node(this, generateId(), false);
+        }
+    }
+    // Если находимся в режиме удаления узлов..
+    else if(!this->isCreatingEdges&&this->isDeletingOrders){
+        // Проверяем, является ли текущий узел заказом, а не машиной
+        // Если да, то..
+        if(!pressedNode->getIsCar()){
+            // Удаляем все ребра, связанные с ним
+            QList<Edge *> e = pressedNode->edges();
+            QList<int> ids = QList<int>();
+            for(int i=0; i<e.length(); i++){
+                ids.append(e.at(i)->getId());
+            }
+            // Для каждого ребра данной вершины..
+            for(int i=0; i<ids.length(); i++){
+                // Обходим список ребер в графе, так как вершина возвращает const
+                // И ищем текущее ребро, удаляем его
+                for(int j=0; j<this->edges.length(); j++){
+                    if(ids.at(i)==this->edges.at(j)->getId()){
+                        // Удаляем из ребер
+                        this->edges.at(j)->sourceNode()->deleteEdge(ids.at(i));
+                        this->edges.at(j)->destNode()->deleteEdge(ids.at(i));
+                        // Удаляем из контейнера
+                        Edge* edge = this->edges.takeAt(j);
+                        // Удаляем из памяти
+                        delete edge;
+                    }
+                }
+            }
+            // Удаляем узел
+            for(int i=0; i<this->nodes.length();i++){
+                if(this->nodes.at(i)->getId()==pressedNode->getId()){
+                    // Удаляем из контейнера
+                    Node* node = this->nodes.takeAt(i);
+                    // Удаляем из памяти
+                    delete node;
+                    break;
+                }
+            }
         }
     }
 }

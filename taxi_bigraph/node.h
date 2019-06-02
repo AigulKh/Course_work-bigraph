@@ -58,6 +58,7 @@ public:
     Node(GraphWidget *graphWidget, int id, bool isValid = true, QString name = "", bool isCar = true);
 
     void addEdge(Edge *edge);
+    void deleteEdge(int edgeId);    // Удаляет ребро с заданным id из списка ребер
     QList<Edge *> edges() const;
 
     enum { Type = UserType + 1 };
@@ -65,6 +66,7 @@ public:
 
     bool advance();
     bool isValid();
+    bool getIsCar();
     QString getName();
     int getId();
 

@@ -56,7 +56,8 @@ public:
     //void itemMoved();
     void addNode(QString carName, bool isCar);     // Добавить узел в центр виджета
     void toggleCreateEdgesMode();   // Перейти в режим создания ребер
-    void checkNewEdge(Node* pressedNode);   // Проверить возможность создания ребра
+    void toggleDeleteOrdersMode();   // Перейти в режим удаления заказов
+    void checkPressedNode(Node* pressedNode);   // Проверить возможность создания ребра
 protected:
     //void keyPressEvent(QKeyEvent *event);
     void wheelEvent(QWheelEvent *event);
@@ -69,6 +70,7 @@ private:
     
     Node* bufNode;      // Буферный узел
     bool isCreatingEdges;   // Флаг состояния создания ребер
+    bool isDeletingOrders;  // Флаг удаления заказов
     void initializeGraph(QGraphicsScene *scene);
 
     /*

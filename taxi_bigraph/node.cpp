@@ -70,6 +70,13 @@ void Node::addEdge(Edge *edge)
     edge->adjust();
 }
 
+void Node::deleteEdge(int edgeId){
+    for(int i=0; i<this->edgeList.length(); i++){
+        if(this->edgeList.at(i)->getId() == edgeId)
+            this->edgeList.removeAt(i);
+    }
+}
+
 QList<Edge *> Node::edges() const
 {
     return edgeList;
@@ -134,17 +141,21 @@ void Node::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void Node::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     releaseTime = QTime::currentTime();
+    update();
+    QGraphicsItem::mouseReleaseEvent(event);
     // Если нажатие продолжалось менее 200 мс, то считаем это нажатием, иначе - перетаскивание
     int dt = pressTime.msecsTo(releaseTime);
     // Если нажатие..
     // Сообщаем графу, что "на нас нажали"
-    if (dt < 200)
-        this->graph->checkNewEdge(this);
-    update();
-    QGraphicsItem::mouseReleaseEvent(event);
+    if (dt < 100)
+        this->graph->checkPressedNode(this);
 }
 
 bool Node::isValid()
 {
     return this->valid;
+}
+
+bool Node::getIsCar(){
+    return this->isCar;
 }
