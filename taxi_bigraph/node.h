@@ -43,6 +43,7 @@
 
 #include <QGraphicsItem>
 #include <QList>
+#include <QTime>
 
 class Edge;
 class GraphWidget;
@@ -54,6 +55,7 @@ public:
     static const int NODE_WIDTH = 50;
     static const int NODE_HEIGHT = 50;
     Node(GraphWidget *graphWidget);
+    Node(GraphWidget *graphWidget, bool isValid = true);
 
     void addEdge(Edge *edge);
     QList<Edge *> edges() const;
@@ -62,6 +64,7 @@ public:
     int type() const { return Type; }
 
     bool advance();
+    bool isValid();
 
     QRectF boundingRect() const;
     QPainterPath shape() const;
@@ -77,6 +80,11 @@ private:
     QList<Edge *> edgeList;
     QPointF newPos;
     GraphWidget *graph;
+    bool valid;
+
+    // Время нажатия и отжатия узла
+    QTime pressTime;
+    QTime releaseTime;
 };
 
 #endif

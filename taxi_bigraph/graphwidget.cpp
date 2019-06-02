@@ -58,6 +58,8 @@ GraphWidget::GraphWidget(QWidget *parent)
     setTransformationAnchor(AnchorUnderMouse);
     scale(qreal(0.9), qreal(0.9));
 
+    isCreatingEdges = false;
+    this->bufNode = new Node(this,false);
     //initializeGraph(scene);
 }
 
@@ -119,7 +121,7 @@ void GraphWidget::addNode()
     // Получаем сцену графа
     QGraphicsScene *scene = this->scene();
     // Создаем объект узла
-    Node* node = new Node(this);
+    Node* node = new Node(this, true);
     // Добавляем узел на сцену
     scene->addItem(node);
     // Задаем узлу позицию в центр виджета
@@ -130,17 +132,50 @@ void GraphWidget::addNode()
     // TODO физически создать узел графа
 }
 
+void GraphWidget::toggleCreateEdgesMode()
+{
+    this->isCreatingEdges = !this->isCreatingEdges;
+    // Если вдруг вышли из состояния создания ребер..
+    // Нужно очистить возможно хранящийся буферный узел
+    if (!this->isCreatingEdges){
+        this->bufNode = new Node(this, false);
+    }
+}
+
+void GraphWidget::checkNewEdge(Node* pressedNode)
+{
+    // Если находимся в режиме создания ребер..
+    if(this->isCreatingEdges){
+        // Если еще нет узла-источника..
+        if(!this->bufNode->isValid())
+            // Считаем полученный узел таковым
+            this->bufNode = pressedNode;
+        else{
+            // Иначе создаем ребро
+            Edge* newE = new Edge(this->bufNode, pressedNode);
+            // Получаем сцену графа
+            QGraphicsScene *scene = this->scene();
+            // Добавляем ребро на сцену
+            scene->addItem(newE);
+            // Добавляем ребро в список ребер
+            this->edges.append(newE);
+            // Очищаем узел-источник
+            this->bufNode = new Node(this, false);
+        }
+    }
+}
+
 void GraphWidget::initializeGraph(QGraphicsScene *scene)
 {
-    Node *node1 = new Node(this);
-    Node *node2 = new Node(this);
-    Node *node3 = new Node(this);
-    Node *node4 = new Node(this);
-    Node *node5 = new Node(this);
-    Node *node6 = new Node(this);
-    Node *node7 = new Node(this);
-    Node *node8 = new Node(this);
-    Node *node9 = new Node(this);
+    Node *node1 = new Node(this, false);
+    Node *node2 = new Node(this, false);
+    Node *node3 = new Node(this, false);
+    Node *node4 = new Node(this, false);
+    Node *node5 = new Node(this, false);
+    Node *node6 = new Node(this, false);
+    Node *node7 = new Node(this, false);
+    Node *node8 = new Node(this, false);
+    Node *node9 = new Node(this, false);
     scene->addItem(node1);
     scene->addItem(node2);
     scene->addItem(node3);

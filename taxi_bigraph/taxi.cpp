@@ -89,8 +89,7 @@ void Taxi::deleteOrder()
 
 void Taxi::assignOrder()
 {
-    // Создать связь между узлами в памяти
-    // Отрисовать ребро между вершинами
+    ui.graphicsView->toggleCreateEdgesMode();
 }
 
 void Taxi::clearAll()

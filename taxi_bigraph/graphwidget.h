@@ -54,7 +54,9 @@ public:
     GraphWidget(QWidget *parent = 0);
 
     //void itemMoved();
-    void addNode(); // Добавить узел в центр виджета
+    void addNode();     // Добавить узел в центр виджета
+    void toggleCreateEdgesMode();   // Перейти в режим создания ребер
+    void checkNewEdge(Node* pressedNode);   // Проверить возможность создания ребра
 protected:
     //void keyPressEvent(QKeyEvent *event);
     void wheelEvent(QWheelEvent *event);
@@ -64,8 +66,11 @@ protected:
 private:
     QList<Node*> nodes; // Контейнер отрисованных узлов
     QList<Edge*> edges; // Контейнер отрисованных ребер
-
+    
+    Node* bufNode;      // Буферный узел
+    bool isCreatingEdges;   // Флаг состояния создания ребер
     void initializeGraph(QGraphicsScene *scene);
+
 };
 
 #endif

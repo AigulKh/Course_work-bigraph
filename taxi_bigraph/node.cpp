@@ -47,13 +47,14 @@
 #include "node.h"
 #include "graphwidget.h"
 
-Node::Node(GraphWidget *graphWidget)
+Node::Node(GraphWidget *graphWidget, bool isValid)
     : graph(graphWidget)
 {
     setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);
     setCacheMode(DeviceCoordinateCache);
     setZValue(-1);
+    this->valid = isValid;
 }
 
 void Node::addEdge(Edge *edge)
@@ -114,12 +115,25 @@ QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value)
 
 void Node::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
+    pressTime = QTime::currentTime();
     update();
     QGraphicsItem::mousePressEvent(event);
 }
 
 void Node::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
+    releaseTime = QTime::currentTime();
+    // Если нажатие продолжалось менее 200 мс, то считаем это нажатием, иначе - перетаскивание
+    int dt = pressTime.msecsTo(releaseTime);
+    // Если нажатие..
+    // Сообщаем графу, что "на нас нажали"
+    if (dt < 200)
+        this->graph->checkNewEdge(this);
     update();
     QGraphicsItem::mouseReleaseEvent(event);
+}
+
+bool Node::isValid()
+{
+    return this->valid;
 }
