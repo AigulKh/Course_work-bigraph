@@ -72,8 +72,8 @@ void Taxi::createCar()
     // Определяем тип создаваемой машины
     QString carName = ui.carTypeAdmin->currentText();
     // Создать узел графа в памяти
-    ui.graphicsView->addNode(carName);
-    // Отрисовать новый узел
+    ui.graphicsView->addNode(carName, true);
+    // Отрегулировать видимость элементов
     toggleAddNewCarActivity(false);
 }
 
@@ -125,8 +125,10 @@ void Taxi::exitApp()
 
 void Taxi::createOrder()
 {
-    // Добавить узел заказа в граф
-    // Отрисовать новый узел графа
+    // Определяем тип создаваемого заказа
+    QString orderName = ui.carTypeUser->currentText();
+    // Создать узел графа в памяти
+    ui.graphicsView->addNode(orderName, false);
 }
 
 

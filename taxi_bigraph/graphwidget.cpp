@@ -59,7 +59,7 @@ GraphWidget::GraphWidget(QWidget *parent)
     scale(qreal(0.9), qreal(0.9));
 
     isCreatingEdges = false;
-    this->bufNode = new Node(this,false);
+    this->bufNode = new Node(this, false);
     //initializeGraph(scene);
 }
 
@@ -116,12 +116,12 @@ void GraphWidget::scaleView(qreal scaleFactor)
     scale(scaleFactor, scaleFactor);
 }
 
-void GraphWidget::addNode(QString carName)
+void GraphWidget::addNode(QString carName, bool isCar)
 {
     // Получаем сцену графа
     QGraphicsScene *scene = this->scene();
     // Создаем объект узла
-    Node* node = new Node(this, generateId(), true, carName, true);
+    Node* node = new Node(this, generateId(), true, carName, isCar);
     // Добавляем узел на сцену
     scene->addItem(node);
     // Задаем узлу позицию в центр виджета
