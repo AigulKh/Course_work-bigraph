@@ -59,6 +59,7 @@ public:
     void toggleCreateEdgesMode();   // Перейти в режим создания ребер
     void toggleDeleteOrdersMode();   // Перейти в режим удаления заказов
     void checkPressedNode(Node* pressedNode);   // Проверить возможность создания ребра
+    bool containsOrders();      // Проверить, находятся ли в графе узлы заказов
 protected:
     //void keyPressEvent(QKeyEvent *event);
     void wheelEvent(QWheelEvent *event);

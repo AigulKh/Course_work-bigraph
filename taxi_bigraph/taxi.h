@@ -15,6 +15,8 @@ public:
 private:
     Ui::TaxiClass ui;
 
+    enum State{ calm, creatingEdges, deletingNodes};
+    State currentState;
     // Установить активность для элементов управления админа
     void checkAdminControlActivity();
     // Обновить активность элементов управления админа по состоянию добавления новой машины

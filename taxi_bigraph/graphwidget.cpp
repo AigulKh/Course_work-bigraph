@@ -233,6 +233,14 @@ void GraphWidget::clearEverything(){
     }
 }
 
+bool GraphWidget::containsOrders(){
+    for(int i=0; i<this->nodes.length(); i++){
+        if(!this->nodes.at(i)->getIsCar())
+            return true;
+    }
+    return false;
+}
+
 /*void GraphWidget::initializeGraph(QGraphicsScene *scene)
 {
     Node *node1 = new Node(this, false);

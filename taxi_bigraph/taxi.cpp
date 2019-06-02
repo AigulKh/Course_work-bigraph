@@ -30,6 +30,9 @@ Taxi::Taxi(QWidget *parent, Qt::WFlags flags)
 
     connect(ui.createOrderButton,SIGNAL(clicked()),this,SLOT(createOrder()));
     connect(ui.exitButtonUser,SIGNAL(clicked()),this,SLOT(exitApp()));
+
+    checkAdminControlActivity();
+    currentState = calm;
 }
 
 Taxi::~Taxi()
@@ -49,6 +52,9 @@ void Taxi::userMode()
     ui.stackedWidget->setCurrentIndex(1);
     // Поставить тип машины в чек-боксе на базовый
     ui.carTypeUser->setCurrentIndex(0);
+
+    // Установить контроль над управлением элементов в зависимости от текущего графа
+    checkAdminControlActivity();
 }
 
 void Taxi::adminMode()
@@ -60,6 +66,8 @@ void Taxi::adminMode()
 
     // Установить контроль над управлением элементов в зависимости от текущего графа
     checkAdminControlActivity();
+    // Установить тип машины на базовый
+    ui.carTypeAdmin->setCurrentIndex(0);
 }
 
 void Taxi::addNewCar()
@@ -84,18 +92,37 @@ void Taxi::cancelAddCar()
 
 void Taxi::deleteOrder()
 {
+    bool isEnabled;
+    if(currentState == calm){
+        currentState = deletingNodes;
+        isEnabled = false;
+    }
+    else if (currentState == deletingNodes){
+        currentState = calm;
+        isEnabled = true;
+    }
+
     ui.graphicsView->toggleDeleteOrdersMode();
-    bool isEnabled = ui.assignOrderButton->isEnabled();
-    ui.assignOrderButton->setEnabled(!isEnabled);
-    ui.addNewCarButton->setEnabled(!isEnabled);
+    ui.assignOrderButton->setEnabled(isEnabled);
+    ui.addNewCarButton->setEnabled(isEnabled);
+    checkAdminControlActivity();
 }
 
 void Taxi::assignOrder()
 {
+    bool isEnabled;
+    if(currentState == calm){
+        currentState = creatingEdges;
+        isEnabled = false;
+    }
+    else if (currentState == creatingEdges){
+        currentState = calm;
+        isEnabled = true;
+    }
+
     ui.graphicsView->toggleCreateEdgesMode();
-    bool isEnabled = ui.deleteOrderButton->isEnabled();
-    ui.deleteOrderButton->setEnabled(!isEnabled);
-    ui.addNewCarButton->setEnabled(!isEnabled);
+    ui.deleteOrderButton->setEnabled(isEnabled);
+    ui.addNewCarButton->setEnabled(isEnabled);
 }
 
 void Taxi::clearAll()
@@ -105,6 +132,8 @@ void Taxi::clearAll()
     ui.graphicsView->clearEverything();
     // Установить активность кнопок
     checkAdminControlActivity();
+    // Установить тип машины на базовый
+    ui.carTypeAdmin->setCurrentIndex(0);
 }
 
 void Taxi::saveGraph()
@@ -131,6 +160,11 @@ void Taxi::createOrder()
     QString orderName = ui.carTypeUser->currentText();
     // Создать узел графа в памяти
     ui.graphicsView->addNode(orderName, false);
+
+    if(!ui.deleteOrderButton->isEnabled() && !ui.assignOrderButton->isEnabled()){
+        ui.deleteOrderButton->setEnabled(true);
+        ui.assignOrderButton->setEnabled(true);
+    }
 }
 
 
@@ -139,13 +173,13 @@ void Taxi::createOrder()
 */
 void Taxi::checkAdminControlActivity()
 {
-    // Если есть заказ..
-    // Кнопки работы с заказами активны
-    // Иначе..
-    // Кнопки работы с заказами неактивны
-
-    // Установить тип машины на базовый
-    ui.carTypeAdmin->setCurrentIndex(0);
+    // Если нет заказов, то кнопки работы с ними активны
+    // Иначе не сделать из-за конфликта с настройкой состояний
+    bool hasOrders = ui.graphicsView->containsOrders();
+    if(!hasOrders){
+        ui.deleteOrderButton->setEnabled(false);
+        ui.assignOrderButton->setEnabled(false);
+    }    
 }
 
 void Taxi::toggleAddNewCarActivity(bool isCreating)
