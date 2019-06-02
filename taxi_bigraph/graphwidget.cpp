@@ -211,6 +211,28 @@ void GraphWidget::checkPressedNode(Node* pressedNode)
     }
 }
 
+void GraphWidget::clearEverything(){
+    // Сначала удаляем ребра
+    int currentId = 0;
+    while(!this->edges.isEmpty()){
+        currentId = this->edges.last()->getId();
+        // Удаляем из узлов
+        this->edges.last()->sourceNode()->deleteEdge(currentId);
+        this->edges.last()->destNode()->deleteEdge(currentId);
+        // Удаляем из контейнера
+        Edge* edge = this->edges.takeLast();
+        // Удаляем из памяти
+        delete edge;
+    }
+    // Затем удаляем узлы
+    while(!this->nodes.isEmpty()){
+        // Удаляем из контейнера
+        Node* node = this->nodes.takeLast();
+        // Удаляем из памяти
+        delete node;
+    }
+}
+
 /*void GraphWidget::initializeGraph(QGraphicsScene *scene)
 {
     Node *node1 = new Node(this, false);

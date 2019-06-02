@@ -54,6 +54,7 @@ public:
     GraphWidget(QWidget *parent = 0);
 
     //void itemMoved();
+    void clearEverything();     // Очистить граф
     void addNode(QString carName, bool isCar);     // Добавить узел в центр виджета
     void toggleCreateEdgesMode();   // Перейти в режим создания ребер
     void toggleDeleteOrdersMode();   // Перейти в режим удаления заказов

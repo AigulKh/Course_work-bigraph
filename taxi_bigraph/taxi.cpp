@@ -102,6 +102,7 @@ void Taxi::clearAll()
 {
     // Очистить граф в памяти
     // Очистить отрисовку
+    ui.graphicsView->clearEverything();
     // Установить активность кнопок
     checkAdminControlActivity();
 }
