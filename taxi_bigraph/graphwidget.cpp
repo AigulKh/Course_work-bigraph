@@ -59,7 +59,7 @@ GraphWidget::GraphWidget(QWidget *parent)
     scale(qreal(0.9), qreal(0.9));
 
     isCreatingEdges = false;
-    this->bufNode = new Node(this, false);
+    this->bufNode = new Node(this, generateId(), false);
     //initializeGraph(scene);
 }
 
