@@ -143,10 +143,10 @@ void Node::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     releaseTime = QTime::currentTime();
     update();
     QGraphicsItem::mouseReleaseEvent(event);
-    // Если нажатие продолжалось менее 200 мс, то считаем это нажатием, иначе - перетаскивание
+    // Р•СЃР»Рё РЅР°Р¶Р°С‚РёРµ РїСЂРѕРґРѕР»Р¶Р°Р»РѕСЃСЊ РјРµРЅРµРµ 200 РјСЃ, С‚Рѕ СЃС‡РёС‚Р°РµРј СЌС‚Рѕ РЅР°Р¶Р°С‚РёРµРј, РёРЅР°С‡Рµ - РїРµСЂРµС‚Р°СЃРєРёРІР°РЅРёРµ
     int dt = pressTime.msecsTo(releaseTime);
-    // Если нажатие..
-    // Сообщаем графу, что "на нас нажали"
+    // Р•СЃР»Рё РЅР°Р¶Р°С‚РёРµ..
+    // РЎРѕРѕР±С‰Р°РµРј РіСЂР°С„Сѓ, С‡С‚Рѕ "РЅР° РЅР°СЃ РЅР°Р¶Р°Р»Рё"
     if (dt < 100)
         this->graph->checkPressedNode(this);
 }

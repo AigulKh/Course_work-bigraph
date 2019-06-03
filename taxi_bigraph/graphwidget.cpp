@@ -120,25 +120,25 @@ void GraphWidget::scaleView(qreal scaleFactor)
 
 void GraphWidget::addNode(QString carName, bool isCar)
 {
-    // Получаем сцену графа
+    // РџРѕР»СѓС‡Р°РµРј СЃС†РµРЅСѓ РіСЂР°С„Р°
     QGraphicsScene *scene = this->scene();
-    // Создаем объект узла
+    // РЎРѕР·РґР°РµРј РѕР±СЉРµРєС‚ СѓР·Р»Р°
     Node* node = new Node(this, generateId(), true, carName, isCar);
-    // Добавляем узел на сцену
+    // Р”РѕР±Р°РІР»СЏРµРј СѓР·РµР» РЅР° СЃС†РµРЅСѓ
     scene->addItem(node);
-    // Задаем узлу позицию в центр виджета
+    // Р—Р°РґР°РµРј СѓР·Р»Сѓ РїРѕР·РёС†РёСЋ РІ С†РµРЅС‚СЂ РІРёРґР¶РµС‚Р°
     node->setPos(0, 0);
-    // Добавляем узел в список узлов графа
+    // Р”РѕР±Р°РІР»СЏРµРј СѓР·РµР» РІ СЃРїРёСЃРѕРє СѓР·Р»РѕРІ РіСЂР°С„Р°
     this->nodes.append(node);
 
-    // TODO физически создать узел графа
+    // TODO С„РёР·РёС‡РµСЃРєРё СЃРѕР·РґР°С‚СЊ СѓР·РµР» РіСЂР°С„Р°
 }
 
 void GraphWidget::toggleCreateEdgesMode()
 {
     this->isCreatingEdges = !this->isCreatingEdges;
-    // Если вдруг вышли из состояния создания ребер..
-    // Нужно очистить возможно хранящийся буферный узел
+    // Р•СЃР»Рё РІРґСЂСѓРі РІС‹С€Р»Рё РёР· СЃРѕСЃС‚РѕСЏРЅРёСЏ СЃРѕР·РґР°РЅРёСЏ СЂРµР±РµСЂ..
+    // РќСѓР¶РЅРѕ РѕС‡РёСЃС‚РёС‚СЊ РІРѕР·РјРѕР¶РЅРѕ С…СЂР°РЅСЏС‰РёР№СЃСЏ Р±СѓС„РµСЂРЅС‹Р№ СѓР·РµР»
     if (!this->isCreatingEdges){
         this->bufNode = new Node(this, generateId(),false);
     }
@@ -151,58 +151,58 @@ void GraphWidget::toggleDeleteOrdersMode()
 
 void GraphWidget::checkPressedNode(Node* pressedNode)
 {
-    // Если находимся в режиме создания ребер..
+    // Р•СЃР»Рё РЅР°С…РѕРґРёРјСЃСЏ РІ СЂРµР¶РёРјРµ СЃРѕР·РґР°РЅРёСЏ СЂРµР±РµСЂ..
     if(this->isCreatingEdges&&!this->isDeletingOrders){
-        // Если еще нет узла-источника..
+        // Р•СЃР»Рё РµС‰Рµ РЅРµС‚ СѓР·Р»Р°-РёСЃС‚РѕС‡РЅРёРєР°..
         if(!this->bufNode->isValid())
-            // Считаем полученный узел таковым
+            // РЎС‡РёС‚Р°РµРј РїРѕР»СѓС‡РµРЅРЅС‹Р№ СѓР·РµР» С‚Р°РєРѕРІС‹Рј
             this->bufNode = pressedNode;
         else{
-            // Иначе создаем ребро
+            // РРЅР°С‡Рµ СЃРѕР·РґР°РµРј СЂРµР±СЂРѕ
             Edge* newE = new Edge(this->bufNode, pressedNode, generateId());
-            // Получаем сцену графа
+            // РџРѕР»СѓС‡Р°РµРј СЃС†РµРЅСѓ РіСЂР°С„Р°
             QGraphicsScene *scene = this->scene();
-            // Добавляем ребро на сцену
+            // Р”РѕР±Р°РІР»СЏРµРј СЂРµР±СЂРѕ РЅР° СЃС†РµРЅСѓ
             scene->addItem(newE);
-            // Добавляем ребро в список ребер
+            // Р”РѕР±Р°РІР»СЏРµРј СЂРµР±СЂРѕ РІ СЃРїРёСЃРѕРє СЂРµР±РµСЂ
             this->edges.append(newE);
-            // Очищаем узел-источник
+            // РћС‡РёС‰Р°РµРј СѓР·РµР»-РёСЃС‚РѕС‡РЅРёРє
             this->bufNode = new Node(this, generateId(), false);
         }
     }
-    // Если находимся в режиме удаления узлов..
+    // Р•СЃР»Рё РЅР°С…РѕРґРёРјСЃСЏ РІ СЂРµР¶РёРјРµ СѓРґР°Р»РµРЅРёСЏ СѓР·Р»РѕРІ..
     else if(!this->isCreatingEdges&&this->isDeletingOrders){
-        // Проверяем, является ли текущий узел заказом, а не машиной
-        // Если да, то..
+        // РџСЂРѕРІРµСЂСЏРµРј, СЏРІР»СЏРµС‚СЃСЏ Р»Рё С‚РµРєСѓС‰РёР№ СѓР·РµР» Р·Р°РєР°Р·РѕРј, Р° РЅРµ РјР°С€РёРЅРѕР№
+        // Р•СЃР»Рё РґР°, С‚Рѕ..
         if(!pressedNode->getIsCar()){
-            // Удаляем все ребра, связанные с ним
+            // РЈРґР°Р»СЏРµРј РІСЃРµ СЂРµР±СЂР°, СЃРІСЏР·Р°РЅРЅС‹Рµ СЃ РЅРёРј
             QList<Edge *> e = pressedNode->edges();
             QList<int> ids = QList<int>();
             for(int i=0; i<e.length(); i++){
                 ids.append(e.at(i)->getId());
             }
-            // Для каждого ребра данной вершины..
+            // Р”Р»СЏ РєР°Р¶РґРѕРіРѕ СЂРµР±СЂР° РґР°РЅРЅРѕР№ РІРµСЂС€РёРЅС‹..
             for(int i=0; i<ids.length(); i++){
-                // Обходим список ребер в графе, так как вершина возвращает const
-                // И ищем текущее ребро, удаляем его
+                // РћР±С…РѕРґРёРј СЃРїРёСЃРѕРє СЂРµР±РµСЂ РІ РіСЂР°С„Рµ, С‚Р°Рє РєР°Рє РІРµСЂС€РёРЅР° РІРѕР·РІСЂР°С‰Р°РµС‚ const
+                // Р РёС‰РµРј С‚РµРєСѓС‰РµРµ СЂРµР±СЂРѕ, СѓРґР°Р»СЏРµРј РµРіРѕ
                 for(int j=0; j<this->edges.length(); j++){
                     if(ids.at(i)==this->edges.at(j)->getId()){
-                        // Удаляем из ребер
+                        // РЈРґР°Р»СЏРµРј РёР· СЂРµР±РµСЂ
                         this->edges.at(j)->sourceNode()->deleteEdge(ids.at(i));
                         this->edges.at(j)->destNode()->deleteEdge(ids.at(i));
-                        // Удаляем из контейнера
+                        // РЈРґР°Р»СЏРµРј РёР· РєРѕРЅС‚РµР№РЅРµСЂР°
                         Edge* edge = this->edges.takeAt(j);
-                        // Удаляем из памяти
+                        // РЈРґР°Р»СЏРµРј РёР· РїР°РјСЏС‚Рё
                         delete edge;
                     }
                 }
             }
-            // Удаляем узел
+            // РЈРґР°Р»СЏРµРј СѓР·РµР»
             for(int i=0; i<this->nodes.length();i++){
                 if(this->nodes.at(i)->getId()==pressedNode->getId()){
-                    // Удаляем из контейнера
+                    // РЈРґР°Р»СЏРµРј РёР· РєРѕРЅС‚РµР№РЅРµСЂР°
                     Node* node = this->nodes.takeAt(i);
-                    // Удаляем из памяти
+                    // РЈРґР°Р»СЏРµРј РёР· РїР°РјСЏС‚Рё
                     delete node;
                     break;
                 }
@@ -212,23 +212,23 @@ void GraphWidget::checkPressedNode(Node* pressedNode)
 }
 
 void GraphWidget::clearEverything(){
-    // Сначала удаляем ребра
+    // РЎРЅР°С‡Р°Р»Р° СѓРґР°Р»СЏРµРј СЂРµР±СЂР°
     int currentId = 0;
     while(!this->edges.isEmpty()){
         currentId = this->edges.last()->getId();
-        // Удаляем из узлов
+        // РЈРґР°Р»СЏРµРј РёР· СѓР·Р»РѕРІ
         this->edges.last()->sourceNode()->deleteEdge(currentId);
         this->edges.last()->destNode()->deleteEdge(currentId);
-        // Удаляем из контейнера
+        // РЈРґР°Р»СЏРµРј РёР· РєРѕРЅС‚РµР№РЅРµСЂР°
         Edge* edge = this->edges.takeLast();
-        // Удаляем из памяти
+        // РЈРґР°Р»СЏРµРј РёР· РїР°РјСЏС‚Рё
         delete edge;
     }
-    // Затем удаляем узлы
+    // Р—Р°С‚РµРј СѓРґР°Р»СЏРµРј СѓР·Р»С‹
     while(!this->nodes.isEmpty()){
-        // Удаляем из контейнера
+        // РЈРґР°Р»СЏРµРј РёР· РєРѕРЅС‚РµР№РЅРµСЂР°
         Node* node = this->nodes.takeLast();
-        // Удаляем из памяти
+        // РЈРґР°Р»СЏРµРј РёР· РїР°РјСЏС‚Рё
         delete node;
     }
 }

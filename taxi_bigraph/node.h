@@ -58,7 +58,7 @@ public:
     Node(GraphWidget *graphWidget, int id, bool isValid = true, QString name = "", bool isCar = true);
 
     void addEdge(Edge *edge);
-    void deleteEdge(int edgeId);    // Удаляет ребро с заданным id из списка ребер
+    void deleteEdge(int edgeId);    // РЈРґР°Р»СЏРµС‚ СЂРµР±СЂРѕ СЃ Р·Р°РґР°РЅРЅС‹Рј id РёР· СЃРїРёСЃРєР° СЂРµР±РµСЂ
     QList<Edge *> edges() const;
 
     enum { Type = UserType + 1 };
@@ -89,7 +89,7 @@ private:
     bool isCar;
     int id;
 
-    // Время нажатия и отжатия узла
+    // Р’СЂРµРјСЏ РЅР°Р¶Р°С‚РёСЏ Рё РѕС‚Р¶Р°С‚РёСЏ СѓР·Р»Р°
     QTime pressTime;
     QTime releaseTime;
 };

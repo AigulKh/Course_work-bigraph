@@ -41,7 +41,7 @@
 #ifndef GRAPHWIDGET_H
 #define GRAPHWIDGET_H
 
-#include <QtGui/QGraphicsView>
+#include <QGraphicsView>
 
 class Node;
 class Edge;
@@ -54,12 +54,12 @@ public:
     GraphWidget(QWidget *parent = 0);
 
     //void itemMoved();
-    void clearEverything();     // Очистить граф
-    void addNode(QString carName, bool isCar);     // Добавить узел в центр виджета
-    void toggleCreateEdgesMode();   // Перейти в режим создания ребер
-    void toggleDeleteOrdersMode();   // Перейти в режим удаления заказов
-    void checkPressedNode(Node* pressedNode);   // Проверить возможность создания ребра
-    bool containsOrders();      // Проверить, находятся ли в графе узлы заказов
+    void clearEverything();     // РћС‡РёСЃС‚РёС‚СЊ РіСЂР°С„
+    void addNode(QString carName, bool isCar);     // Р”РѕР±Р°РІРёС‚СЊ СѓР·РµР» РІ С†РµРЅС‚СЂ РІРёРґР¶РµС‚Р°
+    void toggleCreateEdgesMode();   // РџРµСЂРµР№С‚Рё РІ СЂРµР¶РёРј СЃРѕР·РґР°РЅРёСЏ СЂРµР±РµСЂ
+    void toggleDeleteOrdersMode();   // РџРµСЂРµР№С‚Рё РІ СЂРµР¶РёРј СѓРґР°Р»РµРЅРёСЏ Р·Р°РєР°Р·РѕРІ
+    void checkPressedNode(Node* pressedNode);   // РџСЂРѕРІРµСЂРёС‚СЊ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ СЃРѕР·РґР°РЅРёСЏ СЂРµР±СЂР°
+    bool containsOrders();      // РџСЂРѕРІРµСЂРёС‚СЊ, РЅР°С…РѕРґСЏС‚СЃСЏ Р»Рё РІ РіСЂР°С„Рµ СѓР·Р»С‹ Р·Р°РєР°Р·РѕРІ
 protected:
     //void keyPressEvent(QKeyEvent *event);
     void wheelEvent(QWheelEvent *event);
@@ -67,17 +67,17 @@ protected:
     void scaleView(qreal scaleFactor);
 
 private:
-    QList<Node*> nodes; // Контейнер отрисованных узлов
-    QList<Edge*> edges; // Контейнер отрисованных ребер
+    QList<Node*> nodes; // РљРѕРЅС‚РµР№РЅРµСЂ РѕС‚СЂРёСЃРѕРІР°РЅРЅС‹С… СѓР·Р»РѕРІ
+    QList<Edge*> edges; // РљРѕРЅС‚РµР№РЅРµСЂ РѕС‚СЂРёСЃРѕРІР°РЅРЅС‹С… СЂРµР±РµСЂ
     
-    Node* bufNode;      // Буферный узел
-    bool isCreatingEdges;   // Флаг состояния создания ребер
-    bool isDeletingOrders;  // Флаг удаления заказов
+    Node* bufNode;      // Р‘СѓС„РµСЂРЅС‹Р№ СѓР·РµР»
+    bool isCreatingEdges;   // Р¤Р»Р°Рі СЃРѕСЃС‚РѕСЏРЅРёСЏ СЃРѕР·РґР°РЅРёСЏ СЂРµР±РµСЂ
+    bool isDeletingOrders;  // Р¤Р»Р°Рі СѓРґР°Р»РµРЅРёСЏ Р·Р°РєР°Р·РѕРІ
     void initializeGraph(QGraphicsScene *scene);
 
     /*
-    * Функция по генерации id для объектов
-    * нужна до момента соединения с моделью программы
+    * Р¤СѓРЅРєС†РёСЏ РїРѕ РіРµРЅРµСЂР°С†РёРё id РґР»СЏ РѕР±СЉРµРєС‚РѕРІ
+    * РЅСѓР¶РЅР° РґРѕ РјРѕРјРµРЅС‚Р° СЃРѕРµРґРёРЅРµРЅРёСЏ СЃ РјРѕРґРµР»СЊСЋ РїСЂРѕРіСЂР°РјРјС‹
     */
     int counter;
 

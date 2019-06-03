@@ -1,16 +1,16 @@
 #include "taxi.h"
 
-Taxi::Taxi(QWidget *parent, Qt::WFlags flags)
+Taxi::Taxi(QWidget *parent, Qt::WindowFlags flags)
     : QMainWindow(parent, flags)
 {
     ui.setupUi(this);
 
     /*
-    * Áëîê êîííåêòîâ ñèãíàëîâ îò ıëåìåíòîâ èíòåğôåéñà ê ñëîòàì-îáğàáîò÷èêàì:
-    * connect(	ıëåìåíò ãóè îòïğàâèâøèé ñèãíàë,
-    *			SIGNAL(ñèãíàë êîòîğûé ïğîèçîøåë()),
+    * Ğ‘Ğ»Ğ¾Ğº ĞºĞ¾Ğ½Ğ½ĞµĞºÑ‚Ğ¾Ğ² ÑĞ¸Ğ³Ğ½Ğ°Ğ»Ğ¾Ğ² Ğ¾Ñ‚ ÑĞ»ĞµĞ¼ĞµĞ½Ñ‚Ğ¾Ğ² Ğ¸Ğ½Ñ‚ĞµÑ€Ñ„ĞµĞ¹ÑĞ° Ğº ÑĞ»Ğ¾Ñ‚Ğ°Ğ¼-Ğ¾Ğ±Ñ€Ğ°Ğ±Ğ¾Ñ‚Ñ‡Ğ¸ĞºĞ°Ğ¼:
+    * connect(	ÑĞ»ĞµĞ¼ĞµĞ½Ñ‚ Ğ³ÑƒĞ¸ Ğ¾Ñ‚Ğ¿Ñ€Ğ°Ğ²Ğ¸Ğ²ÑˆĞ¸Ğ¹ ÑĞ¸Ğ³Ğ½Ğ°Ğ»,
+    *			SIGNAL(ÑĞ¸Ğ³Ğ½Ğ°Ğ» ĞºĞ¾Ñ‚Ğ¾Ñ€Ñ‹Ğ¹ Ğ¿Ñ€Ğ¾Ğ¸Ğ·Ğ¾ÑˆĞµĞ»()),
     *			this,
-    *			SLOT(ìåòîä-îáğàáîò÷èê())
+    *			SLOT(Ğ¼ĞµÑ‚Ğ¾Ğ´-Ğ¾Ğ±Ñ€Ğ°Ğ±Ğ¾Ñ‚Ñ‡Ğ¸Ğº())
     * )
     */
     connect(ui.userModeButton,SIGNAL(clicked()),this,SLOT(userMode()));
@@ -42,31 +42,31 @@ Taxi::~Taxi()
 
 
 /*
-* Ñëîòû ãëàâíîãî îêíà
+* Ğ¡Ğ»Ğ¾Ñ‚Ñ‹ Ğ³Ğ»Ğ°Ğ²Ğ½Ğ¾Ğ³Ğ¾ Ğ¾ĞºĞ½Ğ°
 */
 void Taxi::userMode()
 {
-    // Ñìåíèòü òåêóùóş àêòèâíóş ñòğàíèöó mainStackedWidget íà 1
+    // Ğ¡Ğ¼ĞµĞ½Ğ¸Ñ‚ÑŒ Ñ‚ĞµĞºÑƒÑ‰ÑƒÑ Ğ°ĞºÑ‚Ğ¸Ğ²Ğ½ÑƒÑ ÑÑ‚Ñ€Ğ°Ğ½Ğ¸Ñ†Ñƒ mainStackedWidget Ğ½Ğ° 1
     ui.mainStackedWidget->setCurrentIndex(1);
-    // Ñìåíèòü ñòğàíèöó stackedWidget íà 1
+    // Ğ¡Ğ¼ĞµĞ½Ğ¸Ñ‚ÑŒ ÑÑ‚Ñ€Ğ°Ğ½Ğ¸Ñ†Ñƒ stackedWidget Ğ½Ğ° 1
     ui.stackedWidget->setCurrentIndex(1);
-    // Ïîñòàâèòü òèï ìàøèíû â ÷åê-áîêñå íà áàçîâûé
+    // ĞŸĞ¾ÑÑ‚Ğ°Ğ²Ğ¸Ñ‚ÑŒ Ñ‚Ğ¸Ğ¿ Ğ¼Ğ°ÑˆĞ¸Ğ½Ñ‹ Ğ² Ñ‡ĞµĞº-Ğ±Ğ¾ĞºÑĞµ Ğ½Ğ° Ğ±Ğ°Ğ·Ğ¾Ğ²Ñ‹Ğ¹
     ui.carTypeUser->setCurrentIndex(0);
 
-    // Óñòàíîâèòü êîíòğîëü íàä óïğàâëåíèåì ıëåìåíòîâ â çàâèñèìîñòè îò òåêóùåãî ãğàôà
+    // Ğ£ÑÑ‚Ğ°Ğ½Ğ¾Ğ²Ğ¸Ñ‚ÑŒ ĞºĞ¾Ğ½Ñ‚Ñ€Ğ¾Ğ»ÑŒ Ğ½Ğ°Ğ´ ÑƒĞ¿Ñ€Ğ°Ğ²Ğ»ĞµĞ½Ğ¸ĞµĞ¼ ÑĞ»ĞµĞ¼ĞµĞ½Ñ‚Ğ¾Ğ² Ğ² Ğ·Ğ°Ğ²Ğ¸ÑĞ¸Ğ¼Ğ¾ÑÑ‚Ğ¸ Ğ¾Ñ‚ Ñ‚ĞµĞºÑƒÑ‰ĞµĞ³Ğ¾ Ğ³Ñ€Ğ°Ñ„Ğ°
     checkAdminControlActivity();
 }
 
 void Taxi::adminMode()
 {
-    // Ñìåíèòü òåêóùóş àêòèâíóş ñòğàíèöó mainStackedWidget íà 1
+    // Ğ¡Ğ¼ĞµĞ½Ğ¸Ñ‚ÑŒ Ñ‚ĞµĞºÑƒÑ‰ÑƒÑ Ğ°ĞºÑ‚Ğ¸Ğ²Ğ½ÑƒÑ ÑÑ‚Ñ€Ğ°Ğ½Ğ¸Ñ†Ñƒ mainStackedWidget Ğ½Ğ° 1
     ui.mainStackedWidget->setCurrentIndex(1);
-    // Ñìåíèòü ñòğàíèöó stackedWidget íà 0
+    // Ğ¡Ğ¼ĞµĞ½Ğ¸Ñ‚ÑŒ ÑÑ‚Ñ€Ğ°Ğ½Ğ¸Ñ†Ñƒ stackedWidget Ğ½Ğ° 0
     ui.stackedWidget->setCurrentIndex(0);
 
-    // Óñòàíîâèòü êîíòğîëü íàä óïğàâëåíèåì ıëåìåíòîâ â çàâèñèìîñòè îò òåêóùåãî ãğàôà
+    // Ğ£ÑÑ‚Ğ°Ğ½Ğ¾Ğ²Ğ¸Ñ‚ÑŒ ĞºĞ¾Ğ½Ñ‚Ñ€Ğ¾Ğ»ÑŒ Ğ½Ğ°Ğ´ ÑƒĞ¿Ñ€Ğ°Ğ²Ğ»ĞµĞ½Ğ¸ĞµĞ¼ ÑĞ»ĞµĞ¼ĞµĞ½Ñ‚Ğ¾Ğ² Ğ² Ğ·Ğ°Ğ²Ğ¸ÑĞ¸Ğ¼Ğ¾ÑÑ‚Ğ¸ Ğ¾Ñ‚ Ñ‚ĞµĞºÑƒÑ‰ĞµĞ³Ğ¾ Ğ³Ñ€Ğ°Ñ„Ğ°
     checkAdminControlActivity();
-    // Óñòàíîâèòü òèï ìàøèíû íà áàçîâûé
+    // Ğ£ÑÑ‚Ğ°Ğ½Ğ¾Ğ²Ğ¸Ñ‚ÑŒ Ñ‚Ğ¸Ğ¿ Ğ¼Ğ°ÑˆĞ¸Ğ½Ñ‹ Ğ½Ğ° Ğ±Ğ°Ğ·Ğ¾Ğ²Ñ‹Ğ¹
     ui.carTypeAdmin->setCurrentIndex(0);
 }
 
@@ -77,11 +77,11 @@ void Taxi::addNewCar()
 
 void Taxi::createCar()
 {
-    // Îïğåäåëÿåì òèï ñîçäàâàåìîé ìàøèíû
+    // ĞĞ¿Ñ€ĞµĞ´ĞµĞ»ÑĞµĞ¼ Ñ‚Ğ¸Ğ¿ ÑĞ¾Ğ·Ğ´Ğ°Ğ²Ğ°ĞµĞ¼Ğ¾Ğ¹ Ğ¼Ğ°ÑˆĞ¸Ğ½Ñ‹
     QString carName = ui.carTypeAdmin->currentText();
-    // Ñîçäàòü óçåë ãğàôà â ïàìÿòè
+    // Ğ¡Ğ¾Ğ·Ğ´Ğ°Ñ‚ÑŒ ÑƒĞ·ĞµĞ» Ğ³Ñ€Ğ°Ñ„Ğ° Ğ² Ğ¿Ğ°Ğ¼ÑÑ‚Ğ¸
     ui.graphicsView->addNode(carName, true);
-    // Îòğåãóëèğîâàòü âèäèìîñòü ıëåìåíòîâ
+    // ĞÑ‚Ñ€ĞµĞ³ÑƒĞ»Ğ¸Ñ€Ğ¾Ğ²Ğ°Ñ‚ÑŒ Ğ²Ğ¸Ğ´Ğ¸Ğ¼Ğ¾ÑÑ‚ÑŒ ÑĞ»ĞµĞ¼ĞµĞ½Ñ‚Ğ¾Ğ²
     toggleAddNewCarActivity(false);
 }
 
@@ -92,7 +92,7 @@ void Taxi::cancelAddCar()
 
 void Taxi::deleteOrder()
 {
-    bool isEnabled;
+    bool isEnabled = true;
     if(currentState == calm){
         currentState = deletingNodes;
         isEnabled = false;
@@ -110,7 +110,7 @@ void Taxi::deleteOrder()
 
 void Taxi::assignOrder()
 {
-    bool isEnabled;
+    bool isEnabled = true;
     if(currentState == calm){
         currentState = creatingEdges;
         isEnabled = false;
@@ -127,38 +127,38 @@ void Taxi::assignOrder()
 
 void Taxi::clearAll()
 {
-    // Î÷èñòèòü ãğàô â ïàìÿòè
-    // Î÷èñòèòü îòğèñîâêó
+    // ĞÑ‡Ğ¸ÑÑ‚Ğ¸Ñ‚ÑŒ Ğ³Ñ€Ğ°Ñ„ Ğ² Ğ¿Ğ°Ğ¼ÑÑ‚Ğ¸
+    // ĞÑ‡Ğ¸ÑÑ‚Ğ¸Ñ‚ÑŒ Ğ¾Ñ‚Ñ€Ğ¸ÑĞ¾Ğ²ĞºÑƒ
     ui.graphicsView->clearEverything();
-    // Óñòàíîâèòü àêòèâíîñòü êíîïîê
+    // Ğ£ÑÑ‚Ğ°Ğ½Ğ¾Ğ²Ğ¸Ñ‚ÑŒ Ğ°ĞºÑ‚Ğ¸Ğ²Ğ½Ğ¾ÑÑ‚ÑŒ ĞºĞ½Ğ¾Ğ¿Ğ¾Ğº
     checkAdminControlActivity();
-    // Óñòàíîâèòü òèï ìàøèíû íà áàçîâûé
+    // Ğ£ÑÑ‚Ğ°Ğ½Ğ¾Ğ²Ğ¸Ñ‚ÑŒ Ñ‚Ğ¸Ğ¿ Ğ¼Ğ°ÑˆĞ¸Ğ½Ñ‹ Ğ½Ğ° Ğ±Ğ°Ğ·Ğ¾Ğ²Ñ‹Ğ¹
     ui.carTypeAdmin->setCurrentIndex(0);
 }
 
 void Taxi::saveGraph()
 {
-    // Çàïèñàòü òåêóùèé ãğàô â ôàéë
+    // Ğ—Ğ°Ğ¿Ğ¸ÑĞ°Ñ‚ÑŒ Ñ‚ĞµĞºÑƒÑ‰Ğ¸Ğ¹ Ğ³Ñ€Ğ°Ñ„ Ğ² Ñ„Ğ°Ğ¹Ğ»
 }
 
 void Taxi::saveExit()
 {
-    // Çàïèñàòü òåêóùèé ãğàô
-    // Âûéòè èç ïğîãğàììû (èëè íà ñòàğòîâûé ıêğàí?)
+    // Ğ—Ğ°Ğ¿Ğ¸ÑĞ°Ñ‚ÑŒ Ñ‚ĞµĞºÑƒÑ‰Ğ¸Ğ¹ Ğ³Ñ€Ğ°Ñ„
+    // Ğ’Ñ‹Ğ¹Ñ‚Ğ¸ Ğ¸Ğ· Ğ¿Ñ€Ğ¾Ğ³Ñ€Ğ°Ğ¼Ğ¼Ñ‹ (Ğ¸Ğ»Ğ¸ Ğ½Ğ° ÑÑ‚Ğ°Ñ€Ñ‚Ğ¾Ğ²Ñ‹Ğ¹ ÑĞºÑ€Ğ°Ğ½?)
     ui.mainStackedWidget->setCurrentIndex(0);
 }
 
 void Taxi::exitApp()
 {
-    // Âûéòè èç ïğîãğàììû èëè íà ñòàğòîâûé ıêğàí (áåç ñîõğàíåíèÿ)
+    // Ğ’Ñ‹Ğ¹Ñ‚Ğ¸ Ğ¸Ğ· Ğ¿Ñ€Ğ¾Ğ³Ñ€Ğ°Ğ¼Ğ¼Ñ‹ Ğ¸Ğ»Ğ¸ Ğ½Ğ° ÑÑ‚Ğ°Ñ€Ñ‚Ğ¾Ğ²Ñ‹Ğ¹ ÑĞºÑ€Ğ°Ğ½ (Ğ±ĞµĞ· ÑĞ¾Ñ…Ñ€Ğ°Ğ½ĞµĞ½Ğ¸Ñ)
     ui.mainStackedWidget->setCurrentIndex(0);
 }
 
 void Taxi::createOrder()
 {
-    // Îïğåäåëÿåì òèï ñîçäàâàåìîãî çàêàçà
+    // ĞĞ¿Ñ€ĞµĞ´ĞµĞ»ÑĞµĞ¼ Ñ‚Ğ¸Ğ¿ ÑĞ¾Ğ·Ğ´Ğ°Ğ²Ğ°ĞµĞ¼Ğ¾Ğ³Ğ¾ Ğ·Ğ°ĞºĞ°Ğ·Ğ°
     QString orderName = ui.carTypeUser->currentText();
-    // Ñîçäàòü óçåë ãğàôà â ïàìÿòè
+    // Ğ¡Ğ¾Ğ·Ğ´Ğ°Ñ‚ÑŒ ÑƒĞ·ĞµĞ» Ğ³Ñ€Ğ°Ñ„Ğ° Ğ² Ğ¿Ğ°Ğ¼ÑÑ‚Ğ¸
     ui.graphicsView->addNode(orderName, false);
 
     if(!ui.deleteOrderButton->isEnabled() && !ui.assignOrderButton->isEnabled()){
@@ -169,12 +169,12 @@ void Taxi::createOrder()
 
 
 /*
-* Ìåòîäû êëàññà
+* ĞœĞµÑ‚Ğ¾Ğ´Ñ‹ ĞºĞ»Ğ°ÑÑĞ°
 */
 void Taxi::checkAdminControlActivity()
 {
-    // Åñëè íåò çàêàçîâ, òî êíîïêè ğàáîòû ñ íèìè àêòèâíû
-    // Èíà÷å íå ñäåëàòü èç-çà êîíôëèêòà ñ íàñòğîéêîé ñîñòîÿíèé
+    // Ğ•ÑĞ»Ğ¸ Ğ½ĞµÑ‚ Ğ·Ğ°ĞºĞ°Ğ·Ğ¾Ğ², Ñ‚Ğ¾ ĞºĞ½Ğ¾Ğ¿ĞºĞ¸ Ñ€Ğ°Ğ±Ğ¾Ñ‚Ñ‹ Ñ Ğ½Ğ¸Ğ¼Ğ¸ Ğ°ĞºÑ‚Ğ¸Ğ²Ğ½Ñ‹
+    // Ğ˜Ğ½Ğ°Ñ‡Ğµ Ğ½Ğµ ÑĞ´ĞµĞ»Ğ°Ñ‚ÑŒ Ğ¸Ğ·-Ğ·Ğ° ĞºĞ¾Ğ½Ñ„Ğ»Ğ¸ĞºÑ‚Ğ° Ñ Ğ½Ğ°ÑÑ‚Ñ€Ğ¾Ğ¹ĞºĞ¾Ğ¹ ÑĞ¾ÑÑ‚Ğ¾ÑĞ½Ğ¸Ğ¹
     bool hasOrders = ui.graphicsView->containsOrders();
     if(!hasOrders){
         ui.deleteOrderButton->setEnabled(false);
@@ -184,10 +184,10 @@ void Taxi::checkAdminControlActivity()
 
 void Taxi::toggleAddNewCarActivity(bool isCreating)
 {
-    // Îáíîâèòü àêòèâíîñòü ãğóïáîêñà ñ äîáàâëåíèåì íîâîé ìàøèíû
+    // ĞĞ±Ğ½Ğ¾Ğ²Ğ¸Ñ‚ÑŒ Ğ°ĞºÑ‚Ğ¸Ğ²Ğ½Ğ¾ÑÑ‚ÑŒ Ğ³Ñ€ÑƒĞ¿Ğ±Ğ¾ĞºÑĞ° Ñ Ğ´Ğ¾Ğ±Ğ°Ğ²Ğ»ĞµĞ½Ğ¸ĞµĞ¼ Ğ½Ğ¾Ğ²Ğ¾Ğ¹ Ğ¼Ğ°ÑˆĞ¸Ğ½Ñ‹
     ui.addMachineGroupBox->setEnabled(isCreating);
-    // Îáíîâèòü àêòèâíîñòü êíîïêè äîáàâëåíèÿ íîâîé ìàøèíû
+    // ĞĞ±Ğ½Ğ¾Ğ²Ğ¸Ñ‚ÑŒ Ğ°ĞºÑ‚Ğ¸Ğ²Ğ½Ğ¾ÑÑ‚ÑŒ ĞºĞ½Ğ¾Ğ¿ĞºĞ¸ Ğ´Ğ¾Ğ±Ğ°Ğ²Ğ»ĞµĞ½Ğ¸Ñ Ğ½Ğ¾Ğ²Ğ¾Ğ¹ Ğ¼Ğ°ÑˆĞ¸Ğ½Ñ‹
     ui.addNewCarButton->setEnabled(!isCreating);
-    // Îáíîâèòü àêòèâíîñòü êíîïîê ğàáîòû ñ çàêàçàìè
+    // ĞĞ±Ğ½Ğ¾Ğ²Ğ¸Ñ‚ÑŒ Ğ°ĞºÑ‚Ğ¸Ğ²Ğ½Ğ¾ÑÑ‚ÑŒ ĞºĞ½Ğ¾Ğ¿Ğ¾Ğº Ñ€Ğ°Ğ±Ğ¾Ñ‚Ñ‹ Ñ Ğ·Ğ°ĞºĞ°Ğ·Ğ°Ğ¼Ğ¸
     ui.orderControlGroupBox->setEnabled(!isCreating);
 }
