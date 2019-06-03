@@ -5,3 +5,5 @@ taxi_bigraph/ipch/
 taxi_bigraph/taxi_bigraph.opensdf
 taxi_bigraph/taxi_bigraph.sdf
 taxi_bigraph/taxi_bigraph.suo
+taxi_bigraph/.vs
+taxi_bigraph/release

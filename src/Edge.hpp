@@ -1,35 +1,27 @@
-#include <random>
 #include "Vertex.hpp"
 
-template  <typename T, typename R>
+template  <typename T>
 class Edge {
     private:
-        Vertex <T, R> x;
-        Vertex <T, R> y;
-        int weight;
+        Vertex <T> x;
+        Vertex <T> y;
     public:
-        Edge(Vertex <T, R> x, Vertex <T, R> y) {
+        Edge(Vertex <T> x, Vertex <T> y) {
             this->x = x;
             this->y = y;
-            this->weight = 1 + rand() % 100;
         }
 
-        ~Edge() { }
+        ~Edge() {}
 
-        Vertex <T, R> getX() {
+        Vertex <T> getX() {
             return this->x;
         }
 
-        Vertex <T, R> getY() {
+        Vertex <T> getY() {
             return this->y;
         }
 
-        int getWeight() {
-            return this->weight;
-        }
-
-        bool operator==(Edge <T, R> e) {
+        bool operator==(Edge <T> e) {
             return ((this->x == e.getX() && this->y == e.getY()) || (this->x == e.getY() && this->y == e.getX()));
         }
-
 };
