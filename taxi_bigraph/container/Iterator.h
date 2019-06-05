@@ -25,7 +25,7 @@ namespace BigraphProject
 		};
 		~Iterator() {};
 
-		// пре
+		// РїСЂРµ
 		Iterator<T, Allocator>& operator++()
 		{
 			if (iter == nullptr)
@@ -33,7 +33,7 @@ namespace BigraphProject
 				throw IteratorOutOfBoundsException<T>(iter);
 			}
 
-			// ищем первое вхождение
+			// РёС‰РµРј РїРµСЂРІРѕРµ РІС…РѕР¶РґРµРЅРёРµ
 			iter = first(iter);
 			if (iter != nullptr)
 			{
@@ -43,7 +43,7 @@ namespace BigraphProject
 			return *this;
 		};
 
-		// пост
+		// РїРѕСЃС‚
 		Iterator<T, Allocator> operator++(int)
 		{
 			if (iter == nullptr)
@@ -52,7 +52,7 @@ namespace BigraphProject
 			}
 
 			Iterator<T, Allocator> tmp(*this);
-			// ищем первое вхождение
+			// РёС‰РµРј РїРµСЂРІРѕРµ РІС…РѕР¶РґРµРЅРёРµ
 			iter = first(iter);
 			if (iter != nullptr)
 			{
@@ -94,7 +94,7 @@ namespace BigraphProject
 	template<typename T, typename Allocator>
 	Vertex<T>* Iterator<T, Allocator>::first(Vertex<T>* init)
 	{
-		// реализовать
+		// СЂРµР°Р»РёР·РѕРІР°С‚СЊ
 		std::vector<Edge<T> > next_edges;
 		std::vector<Edge<T> >::iterator i = bigraph.E.begin();
 		while ((i = std::find_if(i, bigraph.E.end(),

@@ -67,13 +67,13 @@ namespace BigraphProject
 		std::vector<int> delVertex(int id)
 		{
 			std::vector<int> removeEdge;
-			// удаляем узел
+			// СѓРґР°Р»СЏРµРј СѓР·РµР»
 			V.erase(std::remove_if(V.begin(), V.end(), 
 								[&id](Vertex<T> vertex)
 								{ return vertex.getId() == id; }),
 					V.end());
 
-			// удаляем ребра
+			// СѓРґР°Р»СЏРµРј СЂРµР±СЂР°
 			E.erase(
 				std::remove_if(E.begin(), E.end(), 
 							[&id](Edge<T> edge)
