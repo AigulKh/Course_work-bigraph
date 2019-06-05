@@ -69,6 +69,8 @@ public:
     bool getIsCar();
     QString getName();
     int getId();
+    void setSelected(bool);
+    bool getIsSelected();
 
     QRectF boundingRect() const;
     QPainterPath shape() const;
@@ -88,6 +90,7 @@ private:
     QString name;
     bool isCar;
     int id;
+    bool isSelected;
 
     // Время нажатия и отжатия узла
     QTime pressTime;

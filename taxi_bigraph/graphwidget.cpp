@@ -140,6 +140,8 @@ void GraphWidget::toggleCreateEdgesMode()
     // Если вдруг вышли из состояния создания ребер..
     // Нужно очистить возможно хранящийся буферный узел
     if (!this->isCreatingEdges){
+        if(this->bufNode->isValid())
+            this->bufNode->setSelected(false);
         this->bufNode = new Node(this, generateId(),false);
     }
 }
@@ -166,6 +168,9 @@ void GraphWidget::checkPressedNode(Node* pressedNode)
             scene->addItem(newE);
             // Добавляем ребро в список ребер
             this->edges.append(newE);
+            // Изменяем окрас на узлов на стандартный
+            this->bufNode->setSelected(false);
+            pressedNode->setSelected(false);
             // Очищаем узел-источник
             this->bufNode = new Node(this, generateId(), false);
         }
@@ -209,6 +214,8 @@ void GraphWidget::checkPressedNode(Node* pressedNode)
             }
         }
     }
+    else
+        pressedNode->setSelected(!(pressedNode->getIsSelected()));
 }
 
 void GraphWidget::clearEverything(){

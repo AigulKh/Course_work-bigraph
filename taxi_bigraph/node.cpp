@@ -58,6 +58,7 @@ Node::Node(GraphWidget *graphWidget, int id, bool isValid, QString name, bool is
     this->name = name;
     this->isCar = isCar;
     this->id = id;
+    this->isSelected = false;
 }
 
 int Node::getId(){
@@ -111,7 +112,10 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
         painter->setBrush(QBrush(QColor(66, 103, 178)));
     else
         painter->setBrush(QBrush(QColor(255, 182, 193)));
-    painter->setPen(QPen(Qt::black, 0));
+    if(this->isSelected)
+        painter->setPen(QPen(Qt::green, 0));
+    else
+        painter->setPen(QPen(Qt::black, 0));
     painter->drawEllipse(-NODE_WIDTH/2, -NODE_HEIGHT/2, NODE_WIDTH, NODE_HEIGHT);
     painter->drawText(boundingRect(), Qt::AlignCenter, this->name);
 }
@@ -147,8 +151,10 @@ void Node::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     int dt = pressTime.msecsTo(releaseTime);
     // Если нажатие..
     // Сообщаем графу, что "на нас нажали"
-    if (dt < 100)
+    if (dt < 100){
+        this->isSelected = true;
         this->graph->checkPressedNode(this);
+    }
 }
 
 bool Node::isValid()
@@ -158,4 +164,15 @@ bool Node::isValid()
 
 bool Node::getIsCar(){
     return this->isCar;
+}
+
+bool Node::getIsSelected()
+{
+    return this->isSelected;
+}
+
+void Node::setSelected(bool isSelected)
+{
+    this->isSelected = isSelected;
+    update();
 }
