@@ -18,3 +18,5 @@ container/Container.opensdf
 container/Container.sdf
 container/Container.suo
 build/
+build64/
+*.json
