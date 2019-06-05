@@ -3,6 +3,7 @@ taxi_bigraph/[gG]eneratedFiles/
 taxi_bigraph/[wW]in32/
 taxi_bigraph/ipch/
 taxi_bigraph/taxi_bigraph.opensdf
+taxi_bigraph/taxi_bigraph.pro.user
 taxi_bigraph/taxi_bigraph.sdf
 taxi_bigraph/taxi_bigraph.suo
 taxi_bigraph/.vs
@@ -16,3 +17,4 @@ container/release
 container/Container.opensdf
 container/Container.sdf
 container/Container.suo
+build/
