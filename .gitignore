@@ -7,3 +7,12 @@ taxi_bigraph/taxi_bigraph.sdf
 taxi_bigraph/taxi_bigraph.suo
 taxi_bigraph/.vs
 taxi_bigraph/release
+container/[dD]ebug/
+container/[gG]eneratedFiles/
+container/[wW]in32/
+container/ipch/
+container/.vs
+container/release
+container/Container.opensdf
+container/Container.sdf
+container/Container.suo
