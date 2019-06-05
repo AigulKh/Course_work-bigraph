@@ -4,8 +4,11 @@
 #include "Vertex.h"
 #include "Edge.h"
 #include "Iterator.h"
+#include "Exceptions.h"
+#include "json.hpp"
 
 using namespace std;
+using json = nlohmann::json;
 
 namespace BigraphProject 
 {
@@ -42,7 +45,7 @@ namespace BigraphProject
 
 		Iterator<T, Allocator> end()
 		{
-			return Iterator<T, Alloc>(*this, nullptr);
+			return Iterator<T, Allocator>(*this, nullptr);
 		}
 
 		int addVertex(Vertex<T> vertex)
@@ -51,18 +54,19 @@ namespace BigraphProject
 			return vertex.getId();
 		};
 
-		Vertex<T> getVertexById(int id)
+		Vertex<T> getVertexById(int id) throw(VertexNotFoundException)
 		{
 			for (auto i = V.begin(); i != V.end(); ++i)
 			{
 				if ((*i).getId() == id)
-					return i;
+					return (*i);
 			}
-			// TODO эксепшн если нет такого узла
+			throw VertexNotFoundException(id);
 		};
 
-		void delVertex(int id)
+		std::vector<int> delVertex(int id)
 		{
+			std::vector<int> removeEdge;
 			// удаляем узел
 			V.erase(std::remove_if(V.begin(), V.end(), 
 								[&id](Vertex<T> vertex)
@@ -84,35 +88,22 @@ namespace BigraphProject
 			return edge.getId();
 		};
 
-		int addEdge(int idX, int idY)
+		int addEdge(Vertex<T> x, Vertex<T> y) throw(BelongToOnePart, SameVertex)
 		{
-			// ищем первый узел и второй(выкидываем исключения если одного нет)
-			std::vector<Vertex<T>>::iterator first = std::find(V.begin(), V.end(), [&idX](Vertex<T>& vt) { return vt.getId() == idX; });
-			std::vector<Vertex<T>>::iterator second = std::find(V.begin(), V.end(), [&idX](Vertex<T>& vt) { return vt.getId() == idY; });
-			if (first == v.end() || second == v.end())
+			if (x.getId() == y.getId())
 			{
-				// TODO исключение
+				throw SameVertex(x.getId());
 			}
 
-			// исключение если пытаемся добавить ребро между узлами одной доли
-			if ((*first).getPart() == (*second).getPart())
+			if (x.getPart() == y.getPart())
 			{
-				// TODO исключение
+				throw BelongToOnePart(x.getPart());
 			}
 
-			Edge<T>* ed = new Edge<T>(*first, *second);
+			Edge<T>* ed = new Edge<T>(x, y);
 			E.push_back(*ed);
 			return (*ed).getId();
 		};
-
-		void delEdge(int id)
-		{
-			E.erase(
-				std::remove_if(E.begin(), E.end(), [&id](Edge<T> edge)
-						{ return edge.getX().getId() == id || edge.getY().getId() == id; }),
-				E.end());
-		};
-
 
 		bool isBigraph_() {
 			for (size_t i = 0; i < E.size(); i++) {
@@ -151,7 +142,7 @@ namespace BigraphProject
 				for (size_t j = 0; j < V.size(); j++) {
 					if (V[i].getType() == V[j].getType() && V[i].getPart() != V[j].getPart())
 						if (!checkEdge(V[i], V[j]) && !checkEdge(V[j], V[i])) {
-							Edge <T> e(V[i], V[j]);
+							Edge<T> e(V[i], V[j]);
 							addEdge(e);
 						}
 				}
@@ -287,7 +278,7 @@ namespace BigraphProject
 			return new_puth;
 		}
 
-		Bigraph <T> maximumMatching() {
+		Bigraph<T> maximumMatching() {
 			vector <Vertex <T>> v;
 			vector <Edge <T>> e;
 			vector <Vertex <T>> free_;
@@ -349,6 +340,80 @@ namespace BigraphProject
 			Bigraph <T> graph(v, e);
 			return graph;
 		}
+
+		std::string toJson()
+		{
+			json j;
+			json v;
+			json e;
+			for (auto i = V.begin(); i != V.end(); ++i)
+			{
+				json vertex;
+				vertex["type"] = (*i).getType();
+				vertex["id"] = (*i).getId();
+				vertex["part"] = (*i).getPart();
+				v.push_back(vertex);
+			}
+
+			for (auto i = E.begin(); i != E.end(); ++i)
+			{
+				json edge;
+				edge["id"] = (*i).getId();
+				edge["xId"] = (*i).getX().getId();
+				edge["yId"] = (*i).getY().getId();
+				e.push_back(edge);
+			}
+
+			j["counterVertex"] = Vertex<T>::counter;
+			j["counterEdge"] = Edge<T>::counter;
+			j["vertexes"] = v;
+			j["edges"] = e;
+
+			return j.dump();
+		}
+
+		static Bigraph<T, Allocator>* fromJson(std::string str) throw(ParsingJsonException)
+		{
+			try
+			{
+				json jsonObj = json::parse(str);
+
+				Bigraph<T, Allocator> *bigraph = new Bigraph<T, Allocator>();
+				Vertex<T>::counter = jsonObj["counterVertex"];
+				Edge<T>::counter = jsonObj["counterEdge"];
+				for (json::iterator i = jsonObj["vertexes"].begin(); i != jsonObj["vertexes"].end(); ++i)
+				{
+					bigraph->addVertex(Vertex<T>((*i)["type"], (*i)["part"], (*i)["id"]));
+				}
+
+				for (json::iterator i = jsonObj["edges"].begin(); i != jsonObj["edges"].end(); ++i)
+				{
+					Vertex<T> x = bigraph->getVertexById((*i)["xId"]);
+					Vertex<T> y = bigraph->getVertexById((*i)["yId"]);
+					bigraph->addEdge(Edge<T>(x, y, (*i)["id"]));
+				}
+
+				return bigraph;
+			}
+			catch (...)
+			{
+				throw ParsingJsonException(str);
+			}
+		}
+
+		friend std::ostream& operator<<(std::ostream& os, const Bigraph<T, Allocator>& bigraph)
+		{
+			os << const_cast<Bigraph<T, Allocator>*>(&bigraph)->toJson() << std::endl;
+			return os;
+		};
+
+		friend std::istream& operator>>(std::istream& is, Bigraph<T, Allocator>** bigraph) throw(ParsingJsonException)
+		{
+			std::string str;
+			is >> str;
+			*bigraph = Bigraph<T, Allocator>::fromJson(str);
+			return is;
+		};
 	};
 }
 
