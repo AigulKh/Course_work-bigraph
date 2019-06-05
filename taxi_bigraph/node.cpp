@@ -83,14 +83,14 @@ QList<Edge *> Node::edges() const
     return edgeList;
 }
 
-bool Node::advance()
+/*bool Node::advance()
 {
     if (newPos == pos())
         return false;
 
     setPos(newPos);
     return true;
-}
+}*/
 
 QRectF Node::boundingRect() const
 {
@@ -175,4 +175,11 @@ void Node::setSelected(bool isSelected)
 {
     this->isSelected = isSelected;
     update();
+}
+
+void Node::toJson(QJsonObject &obj)
+{
+    obj["id"] = this->getId();
+    obj["x"] = this->x();
+    obj["y"] = this->y();
 }

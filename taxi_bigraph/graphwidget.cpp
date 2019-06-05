@@ -51,6 +51,7 @@ GraphWidget::GraphWidget(QWidget *parent)
 {
     QGraphicsScene *scene = new QGraphicsScene(this);
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
+    scene->setSceneRect(0,0,200,200);
     setScene(scene);
     setCacheMode(CacheBackground);
     setViewportUpdateMode(BoundingRectViewportUpdate);
@@ -62,6 +63,8 @@ GraphWidget::GraphWidget(QWidget *parent)
     this->isDeletingOrders = false;
     this->counter = 0;
     this->bufNode = new Node(this, generateId(), false);
+    this->nodes = QList<Node*>();
+    this->edges = QList<Edge*>();
     //initializeGraph(scene);
 }
 
@@ -246,6 +249,66 @@ bool GraphWidget::containsOrders(){
             return true;
     }
     return false;
+}
+
+void GraphWidget::saveNodes()
+{
+    QFile saveFile(QStringLiteral("save.json"));
+
+    if (!saveFile.open(QIODevice::WriteOnly)) {
+        qWarning("Couldn't open save file.");
+    }
+    else{
+        QJsonObject json;
+        QJsonArray nodesList;
+        for(int i=0; i<this->nodes.length(); i++){
+            QJsonObject jNode;
+            this->nodes.at(i)->toJson(jNode);
+            nodesList.append(jNode);
+        }
+        json["nodes"] = nodesList;
+
+        QJsonDocument saveDoc(json);
+        saveFile.write(saveDoc.toJson());
+
+        saveFile.close();
+    }
+}
+
+void GraphWidget::loadNodes()
+{
+    QFile loadFile(QStringLiteral("save.json"));
+
+    if (!loadFile.open(QIODevice::ReadOnly)) {
+        qWarning("Couldn't open save file.");
+    }
+    else{
+        QByteArray saveData = loadFile.readAll();
+
+        QJsonDocument loadDoc(QJsonDocument::fromJson(saveData));
+
+        QJsonObject nodesPoses = loadDoc.object();
+        if(!nodesPoses.isEmpty() && nodesPoses.contains("nodes")){
+            QJsonArray nodesList = nodesPoses["nodes"].toArray();
+            this->nodes = QList<Node*>();
+            for(int i=0; i<nodesList.size(); i++){
+                QJsonObject jNode = nodesList[i].toObject();
+                if(jNode.contains("id")&&jNode.contains("x")&&jNode.contains("y")){
+                    Node* node = new Node(this, jNode["id"].toInt());
+                    // Получаем сцену графа
+                    QGraphicsScene *scene = this->scene();
+                    // Добавляем узел на сцену
+                    scene->addItem(node);
+                    node->setPos(qreal(jNode["x"].toDouble()), qreal(jNode["y"].toDouble()));
+                    // Добавляем узел в список узлов графа
+                    this->nodes.append(node);
+
+                }
+            }
+        }
+        loadFile.close();
+    }
+
 }
 
 /*void GraphWidget::initializeGraph(QGraphicsScene *scene)

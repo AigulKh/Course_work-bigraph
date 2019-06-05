@@ -33,6 +33,8 @@ Taxi::Taxi(QWidget *parent, Qt::WindowFlags flags)
 
     checkAdminControlActivity();
     currentState = calm;
+
+    ui.graphicsView->loadNodes();
 }
 
 Taxi::~Taxi()
@@ -139,11 +141,13 @@ void Taxi::clearAll()
 void Taxi::saveGraph()
 {
     // Записать текущий граф в файл
+    ui.graphicsView->saveNodes();
 }
 
 void Taxi::saveExit()
 {
     // Записать текущий граф
+    ui.graphicsView->saveNodes();
     // Выйти из программы (или на стартовый экран?)
     ui.mainStackedWidget->setCurrentIndex(0);
 }

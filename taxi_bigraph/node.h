@@ -42,6 +42,7 @@
 #define NODE_H
 
 #include <QGraphicsItem>
+#include <QJsonObject>
 #include <QList>
 #include <QTime>
 
@@ -64,13 +65,14 @@ public:
     enum { Type = UserType + 1 };
     int type() const { return Type; }
 
-    bool advance();
+    //bool advance();
     bool isValid();
     bool getIsCar();
     QString getName();
     int getId();
     void setSelected(bool);
     bool getIsSelected();
+    void toJson(QJsonObject &obj);  // отдает представление себя в формате json
 
     QRectF boundingRect() const;
     QPainterPath shape() const;
