@@ -26,6 +26,8 @@ CONFIG += c++17
 CONFIG += debug
 
 SOURCES += \
+        container/Vertex.cpp \
+        container/stdafx.cpp \
         edge.cpp \
         graphwidget.cpp \
         main.cpp \
@@ -33,10 +35,20 @@ SOURCES += \
         taxi.cpp
 
 HEADERS += \
+        container/AllocatorContainer.h \
+        container/Bigraph.h \
+        container/Edge.h \
+        container/Exceptions.h \
+        container/Iterator.h \
+        container/Vertex.h \
+        container/json.hpp \
+        container/stdafx.h \
+        container/targetver.h \
         edge.h \
         graphwidget.h \
         node.h \
-        taxi.h
+        taxi.h \
+        ui_taxi.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
