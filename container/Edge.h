@@ -16,13 +16,17 @@ namespace BigraphProject
 	public:
 		static int counter;
 
-		Edge(Vertex <T> x, Vertex <T> y)
+		Edge()
+		{
+		};
+
+		Edge(Vertex<T> x, Vertex<T> y)
 		{
 			this->x = x;
             this->y = y;
 			this->id = counter++;
 		};
-		Edge(Vertex <T> x, Vertex <T> y, int id)
+		Edge(Vertex<T> x, Vertex<T> y, int id)
 		{
 			this->x = x;
 			this->y = y;
@@ -30,10 +34,10 @@ namespace BigraphProject
 		};
 		~Edge(void) {};
 
-		Vertex<T> getX() { return this->x };
-		Vertex<T> getY() { return this->y };
+		Vertex<T> getX() { return this->x; };
+		Vertex<T> getY() { return this->y; };
 
-		int getId() { return this->id };
+		int getId() { return this->id; };
 
 		bool operator == (Edge<T> e)
 		{

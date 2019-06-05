@@ -13,32 +13,38 @@ namespace BigraphProject
 	public:
 		static int counter;
 
-		Vertex(T type, bool part)
+		Vertex()
 		{
-			this->type = type;
-			this->part = part;
+		};
+
+		Vertex(T _type, bool _part)
+		{
+			this->type = _type;
+			this->part = _part;
 			this->id = counter++;
 		};
-		Vertex(T type, bool part, int id)
+
+		Vertex(T _type, bool _part, int _id)
 		{
-			this->type = type;
-			this->part = part;
-			this->id = id;
+			this->type = _type;
+			this->part = _part;
+			this->id = _id;
 		};
+
 		~Vertex(void){};
 
 		T getType() { return this->type; };
 
-		void setType(T type)
+		void setType(T _type)
 		{
-			this->type = type;
+			this->type = _type;
 		};
 
 		bool getPart() { return this->part; };
 
-		void setPart(bool part)
+		void setPart(bool _part)
 		{
-			this->part = part;
+			this->part = _part;
 		};
 
 		int getId() { return this->id; };
