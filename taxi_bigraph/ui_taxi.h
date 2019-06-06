@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'taxi.ui'
 **
-** Created by: Qt User Interface Compiler version 5.12.0
+** Created by: Qt User Interface Compiler version 5.12.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -55,11 +55,14 @@ public:
     QWidget *page_3;
     QGridLayout *gridLayout_7;
     QGridLayout *gridLayout_6;
+    QPushButton *bigraphButton;
     QPushButton *clearAllButton;
-    QHBoxLayout *horizontalLayout;
-    QPushButton *saveButton;
-    QPushButton *saveAndExitButton;
-    QPushButton *exitButtonAdmin;
+    QGroupBox *orderControlGroupBox;
+    QGridLayout *gridLayout_8;
+    QVBoxLayout *verticalLayout;
+    QPushButton *deleteOrderButton;
+    QPushButton *assignOrderButton;
+    QSpacerItem *verticalSpacer;
     QVBoxLayout *verticalLayout_3;
     QPushButton *addNewCarButton;
     QGroupBox *addMachineGroupBox;
@@ -69,12 +72,10 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QPushButton *createCarButton;
     QPushButton *cancelAddCarButton;
-    QGroupBox *orderControlGroupBox;
-    QGridLayout *gridLayout_8;
-    QVBoxLayout *verticalLayout;
-    QPushButton *deleteOrderButton;
-    QPushButton *assignOrderButton;
-    QSpacerItem *verticalSpacer;
+    QHBoxLayout *horizontalLayout;
+    QPushButton *saveButton;
+    QPushButton *saveAndExitButton;
+    QPushButton *exitButtonAdmin;
     QWidget *page_4;
     QGridLayout *gridLayout_10;
     QPushButton *exitButtonUser;
@@ -183,31 +184,44 @@ public:
         gridLayout_6 = new QGridLayout();
         gridLayout_6->setSpacing(6);
         gridLayout_6->setObjectName(QString::fromUtf8("gridLayout_6"));
+        bigraphButton = new QPushButton(page_3);
+        bigraphButton->setObjectName(QString::fromUtf8("bigraphButton"));
+
+        gridLayout_6->addWidget(bigraphButton, 3, 0, 1, 1);
+
         clearAllButton = new QPushButton(page_3);
         clearAllButton->setObjectName(QString::fromUtf8("clearAllButton"));
 
-        gridLayout_6->addWidget(clearAllButton, 3, 0, 1, 1);
+        gridLayout_6->addWidget(clearAllButton, 4, 0, 1, 1);
 
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        saveButton = new QPushButton(page_3);
-        saveButton->setObjectName(QString::fromUtf8("saveButton"));
+        orderControlGroupBox = new QGroupBox(page_3);
+        orderControlGroupBox->setObjectName(QString::fromUtf8("orderControlGroupBox"));
+        gridLayout_8 = new QGridLayout(orderControlGroupBox);
+        gridLayout_8->setSpacing(6);
+        gridLayout_8->setContentsMargins(11, 11, 11, 11);
+        gridLayout_8->setObjectName(QString::fromUtf8("gridLayout_8"));
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setSpacing(6);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        deleteOrderButton = new QPushButton(orderControlGroupBox);
+        deleteOrderButton->setObjectName(QString::fromUtf8("deleteOrderButton"));
 
-        horizontalLayout->addWidget(saveButton);
+        verticalLayout->addWidget(deleteOrderButton);
 
-        saveAndExitButton = new QPushButton(page_3);
-        saveAndExitButton->setObjectName(QString::fromUtf8("saveAndExitButton"));
+        assignOrderButton = new QPushButton(orderControlGroupBox);
+        assignOrderButton->setObjectName(QString::fromUtf8("assignOrderButton"));
 
-        horizontalLayout->addWidget(saveAndExitButton);
-
-        exitButtonAdmin = new QPushButton(page_3);
-        exitButtonAdmin->setObjectName(QString::fromUtf8("exitButtonAdmin"));
-
-        horizontalLayout->addWidget(exitButtonAdmin);
+        verticalLayout->addWidget(assignOrderButton);
 
 
-        gridLayout_6->addLayout(horizontalLayout, 4, 0, 1, 1);
+        gridLayout_8->addLayout(verticalLayout, 0, 0, 1, 1);
+
+
+        gridLayout_6->addWidget(orderControlGroupBox, 1, 0, 1, 1);
+
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_6->addItem(verticalSpacer, 2, 0, 1, 1);
 
         verticalLayout_3 = new QVBoxLayout();
         verticalLayout_3->setSpacing(6);
@@ -261,34 +275,26 @@ public:
 
         gridLayout_6->addLayout(verticalLayout_3, 0, 0, 1, 1);
 
-        orderControlGroupBox = new QGroupBox(page_3);
-        orderControlGroupBox->setObjectName(QString::fromUtf8("orderControlGroupBox"));
-        gridLayout_8 = new QGridLayout(orderControlGroupBox);
-        gridLayout_8->setSpacing(6);
-        gridLayout_8->setContentsMargins(11, 11, 11, 11);
-        gridLayout_8->setObjectName(QString::fromUtf8("gridLayout_8"));
-        verticalLayout = new QVBoxLayout();
-        verticalLayout->setSpacing(6);
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        deleteOrderButton = new QPushButton(orderControlGroupBox);
-        deleteOrderButton->setObjectName(QString::fromUtf8("deleteOrderButton"));
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        saveButton = new QPushButton(page_3);
+        saveButton->setObjectName(QString::fromUtf8("saveButton"));
 
-        verticalLayout->addWidget(deleteOrderButton);
+        horizontalLayout->addWidget(saveButton);
 
-        assignOrderButton = new QPushButton(orderControlGroupBox);
-        assignOrderButton->setObjectName(QString::fromUtf8("assignOrderButton"));
+        saveAndExitButton = new QPushButton(page_3);
+        saveAndExitButton->setObjectName(QString::fromUtf8("saveAndExitButton"));
 
-        verticalLayout->addWidget(assignOrderButton);
+        horizontalLayout->addWidget(saveAndExitButton);
 
+        exitButtonAdmin = new QPushButton(page_3);
+        exitButtonAdmin->setObjectName(QString::fromUtf8("exitButtonAdmin"));
 
-        gridLayout_8->addLayout(verticalLayout, 0, 0, 1, 1);
+        horizontalLayout->addWidget(exitButtonAdmin);
 
 
-        gridLayout_6->addWidget(orderControlGroupBox, 1, 0, 1, 1);
-
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_6->addItem(verticalSpacer, 2, 0, 1, 1);
+        gridLayout_6->addLayout(horizontalLayout, 5, 0, 1, 1);
 
 
         gridLayout_7->addLayout(gridLayout_6, 0, 0, 1, 1);
@@ -379,10 +385,11 @@ public:
         label_3->setText(QApplication::translate("TaxiClass", "\320\222\321\213\320\261\320\265\321\200\320\270\321\202\320\265 \321\200\320\265\320\266\320\270\320\274 \321\200\320\260\320\261\320\276\321\202\321\213 \320\277\321\200\320\276\320\263\321\200\320\260\320\274\320\274\321\213:", nullptr));
         userModeButton->setText(QApplication::translate("TaxiClass", "\320\237\320\276\320\273\321\214\320\267\320\276\320\262\320\260\321\202\320\265\320\273\321\214", nullptr));
         adminModeButton->setText(QApplication::translate("TaxiClass", "\320\220\320\264\320\274\320\270\320\275\320\270\321\201\321\202\321\200\320\260\321\202\320\276\321\200", nullptr));
+        bigraphButton->setText(QApplication::translate("TaxiClass", "\320\237\321\200\320\276\320\262\320\265\321\200\320\270\321\202\321\214 \320\275\320\260 \320\264\320\262\321\203\320\264\320\276\320\273\321\214\320\275\320\276\321\201\321\202\321\214", nullptr));
         clearAllButton->setText(QApplication::translate("TaxiClass", "\320\236\321\207\320\270\321\201\321\202\320\270\321\202\321\214 \321\201\321\205\320\265\320\274\321\203", nullptr));
-        saveButton->setText(QApplication::translate("TaxiClass", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214", nullptr));
-        saveAndExitButton->setText(QApplication::translate("TaxiClass", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214 \320\270 \320\262\321\213\320\271\321\202\320\270", nullptr));
-        exitButtonAdmin->setText(QApplication::translate("TaxiClass", "\320\222\321\213\320\271\321\202\320\270", nullptr));
+        orderControlGroupBox->setTitle(QApplication::translate("TaxiClass", "\320\236\320\277\320\265\321\200\320\260\321\206\320\270\320\270 \321\201 \320\267\320\260\320\272\320\260\320\267\320\260\320\274\320\270", nullptr));
+        deleteOrderButton->setText(QApplication::translate("TaxiClass", "\320\243\320\264\320\260\320\273\320\270\321\202\321\214 \320\267\320\260\320\272\320\260\320\267", nullptr));
+        assignOrderButton->setText(QApplication::translate("TaxiClass", "\320\235\320\260\320\267\320\275\320\260\321\207\320\270\321\202\321\214 \320\267\320\260\320\272\320\260\320\267", nullptr));
         addNewCarButton->setText(QApplication::translate("TaxiClass", "\320\224\320\276\320\261\320\260\320\262\320\270\321\202\321\214 \320\274\320\260\321\210\320\270\320\275\321\203", nullptr));
         addMachineGroupBox->setTitle(QApplication::translate("TaxiClass", "\320\224\320\276\320\261\320\260\320\262\320\273\320\265\320\275\320\270\320\265 \320\274\320\260\321\210\320\270\320\275\321\213", nullptr));
         label->setText(QApplication::translate("TaxiClass", "\320\222\321\213\320\261\320\265\321\200\320\270\321\202\320\265 \321\202\320\270\320\277 \320\274\320\260\321\210\320\270\320\275\321\213:", nullptr));
@@ -394,9 +401,9 @@ public:
 
         createCarButton->setText(QApplication::translate("TaxiClass", "\320\224\320\276\320\261\320\260\320\262\320\270\321\202\321\214", nullptr));
         cancelAddCarButton->setText(QApplication::translate("TaxiClass", "\320\236\321\202\320\274\320\265\320\275\320\260", nullptr));
-        orderControlGroupBox->setTitle(QApplication::translate("TaxiClass", "\320\236\320\277\320\265\321\200\320\260\321\206\320\270\320\270 \321\201 \320\267\320\260\320\272\320\260\320\267\320\260\320\274\320\270", nullptr));
-        deleteOrderButton->setText(QApplication::translate("TaxiClass", "\320\243\320\264\320\260\320\273\320\270\321\202\321\214 \320\267\320\260\320\272\320\260\320\267", nullptr));
-        assignOrderButton->setText(QApplication::translate("TaxiClass", "\320\235\320\260\320\267\320\275\320\260\321\207\320\270\321\202\321\214 \320\267\320\260\320\272\320\260\320\267", nullptr));
+        saveButton->setText(QApplication::translate("TaxiClass", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214", nullptr));
+        saveAndExitButton->setText(QApplication::translate("TaxiClass", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214 \320\270 \320\262\321\213\320\271\321\202\320\270", nullptr));
+        exitButtonAdmin->setText(QApplication::translate("TaxiClass", "\320\222\321\213\320\271\321\202\320\270", nullptr));
         exitButtonUser->setText(QApplication::translate("TaxiClass", "\320\222\321\213\320\271\321\202\320\270", nullptr));
         creatingOrderGroupBox->setTitle(QApplication::translate("TaxiClass", "\320\241\320\264\320\265\320\273\320\260\320\271\321\202\320\265 \320\267\320\260\320\272\320\260\320\267", nullptr));
         createOrderButton->setText(QApplication::translate("TaxiClass", "\320\236\321\204\320\276\321\200\320\274\320\270\321\202\321\214 \320\267\320\260\320\272\320\260\320\267", nullptr));

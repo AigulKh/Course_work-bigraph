@@ -68,32 +68,34 @@ namespace BigraphProject
 			throw VertexNotFoundException(id);
         }
 
-		std::vector<int> delVertex(int id)
+        void delVertex(int id)
 		{
-			std::vector<int> removeEdge;
+            //std::vector<int> removeEdge;
 
             // удаляем ребра
-            for(auto it = E.begin(); it != E.end(); it++){
+            /*for(auto it = E.begin(); it != E.end(); it++){
                 if((*it).getX().getId() == id || (*it).getY().getId() == id)
                     it = E.erase(it);
-            }
-            /*E.erase(
+            }*/
+            E.erase(
                 std::remove_if(E.begin(), E.end(),
                             [&id](Edge<T> edge)
                             { return edge.getX().getId() == id || edge.getY().getId() == id; }),
-                    E.end());*/
+                    E.end());
 
 			// удаляем узел
-            /*V.erase(std::remove_if(V.begin(), V.end(),
+            V.erase(std::remove_if(V.begin(), V.end(),
 								[&id](Vertex<T> vertex)
 								{ return vertex.getId() == id; }),
-                    V.end());*/
-            for(auto it = V.begin(); it != V.end(); it++){
+                    V.end());
+            /*for(auto it = V.begin(); it != V.end(); it++){
                 if((*it).getId() == id){
                     it = V.erase(it);
                     break;
                 }
-            }
+            }*/
+
+
         }
 
 

@@ -45,6 +45,7 @@
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QMessageBox>
 #include <fstream>
 #include "container/Bigraph.h"
 #include "container/AllocatorContainer.h"
@@ -69,6 +70,9 @@ public:
 
     void loadNodes();
     void saveNodes();
+
+    bool isBigraph();
+    void makePairs();
 protected:
     //void keyPressEvent(QKeyEvent *event);
     void wheelEvent(QWheelEvent *event);

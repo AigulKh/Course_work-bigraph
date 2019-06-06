@@ -31,6 +31,9 @@ Taxi::Taxi(QWidget *parent, Qt::WindowFlags flags)
     connect(ui.createOrderButton,SIGNAL(clicked()),this,SLOT(createOrder()));
     connect(ui.exitButtonUser,SIGNAL(clicked()),this,SLOT(exitApp()));
 
+    connect(ui.bigraphButton, SIGNAL(clicked()), this, SLOT(checkBigraph()));
+    //connect(ui.pairsButton, SIGNAL(clicked()), this, SLOT(checkPairs()));
+
     //checkAdminControlActivity();
     currentState = calm;
 
@@ -46,6 +49,19 @@ Taxi::~Taxi()
 /*
 * Слоты главного окна
 */
+
+void Taxi::checkBigraph()
+{
+    bool isBigraph = ui.graphicsView->isBigraph();
+    QString infoMessage;
+    if(isBigraph)
+        infoMessage = "Граф является двудольным";
+    else
+        infoMessage = "Граф не является двудольным";
+
+    QMessageBox::information(0,"Двудольность графа",infoMessage);
+}
+
 void Taxi::userMode()
 {
     // Сменить текущую активную страницу mainStackedWidget на 1
@@ -56,7 +72,7 @@ void Taxi::userMode()
     ui.carTypeUser->setCurrentIndex(0);
 
     // Установить контроль над управлением элементов в зависимости от текущего графа
-    checkAdminControlActivity();
+    //checkAdminControlActivity();
 }
 
 void Taxi::adminMode()
@@ -67,7 +83,7 @@ void Taxi::adminMode()
     ui.stackedWidget->setCurrentIndex(0);
 
     // Установить контроль над управлением элементов в зависимости от текущего графа
-    checkAdminControlActivity();
+    //checkAdminControlActivity();
     // Установить тип машины на базовый
     ui.carTypeAdmin->setCurrentIndex(0);
 }
@@ -107,7 +123,7 @@ void Taxi::deleteOrder()
     ui.graphicsView->toggleDeleteOrdersMode();
     ui.assignOrderButton->setEnabled(isEnabled);
     ui.addNewCarButton->setEnabled(isEnabled);
-    checkAdminControlActivity();
+    //checkAdminControlActivity();
 }
 
 void Taxi::assignOrder()
@@ -133,7 +149,7 @@ void Taxi::clearAll()
     // Очистить отрисовку
     ui.graphicsView->clearEverything();
     // Установить активность кнопок
-    checkAdminControlActivity();
+    //checkAdminControlActivity();
     // Установить тип машины на базовый
     ui.carTypeAdmin->setCurrentIndex(0);
 }

@@ -23,6 +23,9 @@ private:
     void toggleAddNewCarActivity(bool isCreating);
 
     private slots:
+
+        void checkBigraph();    // Проверить граф на двудольность
+        //void checkPairs();    // Проверить граф на двудольность
         void userMode();		// Режим пользователя
         void adminMode();		// Режим администратора
 

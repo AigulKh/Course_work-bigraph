@@ -108,6 +108,16 @@ GraphWidget::GraphWidget(QWidget *parent)
     }
 }*/
 
+void GraphWidget::makePairs()
+{
+
+}
+
+bool GraphWidget::isBigraph()
+{
+    return this->bigraph->isBigraph_() && this->bigraph->isBigraph() && !this->edges.isEmpty();
+}
+
 void GraphWidget::wheelEvent(QWheelEvent *event)
 {
     scaleView(pow((double)2, -event->delta() / 240.0));
@@ -165,20 +175,26 @@ void GraphWidget::checkPressedNode(Node* pressedNode)
             // Считаем полученный узел таковым
             this->bufNode = pressedNode;
         else{
-            // Создаем ребро в контейнере
-            int id1 = this->bufNode->getId();
-            int id2 = pressedNode->getId();
-            int edgeId = this->bigraph->addEdge(bigraph->getVertexById(id1), bigraph->getVertexById(id2));
-
-
-            // Иначе создаем ребро
-            Edge* newE = new Edge(this->bufNode, pressedNode, edgeId);
-            // Получаем сцену графа
-            QGraphicsScene *scene = this->scene();
-            // Добавляем ребро на сцену
-            scene->addItem(newE);
-            // Добавляем ребро в список ребер
-            this->edges.append(newE);
+            try{
+                // Создаем ребро в контейнере
+                int id1 = this->bufNode->getId();
+                int id2 = pressedNode->getId();
+                int edgeId = this->bigraph->addEdge(bigraph->getVertexById(id1), bigraph->getVertexById(id2));
+                // Иначе создаем ребро
+                Edge* newE = new Edge(this->bufNode, pressedNode, edgeId);
+                // Получаем сцену графа
+                QGraphicsScene *scene = this->scene();
+                // Добавляем ребро на сцену
+                scene->addItem(newE);
+                // Добавляем ребро в список ребер
+                this->edges.append(newE);
+            } catch(BigraphProject::SameVertex e) {
+                QMessageBox::warning(0,"Назначение заказа",
+                                         "Невозможно создать петлю в графе");
+            } catch(BigraphProject::BelongToOnePart e){
+                QMessageBox::warning(0,"Назначение заказа",
+                                       "Невозможно создать ребро внутри одной доли");
+            }
             // Изменяем окрас на узлов на стандартный
             this->bufNode->setSelected(false);
             pressedNode->setSelected(false);
@@ -228,6 +244,9 @@ void GraphWidget::checkPressedNode(Node* pressedNode)
                     break;
                 }
             }
+        }
+        else {
+            pressedNode->setSelected(!(pressedNode->getIsSelected()));
         }
     }
     else
