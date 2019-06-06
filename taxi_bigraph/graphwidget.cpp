@@ -65,6 +65,7 @@ GraphWidget::GraphWidget(QWidget *parent)
     this->bufNode = new Node(this, generateId(), false);
     this->nodes = QList<Node*>();
     this->edges = QList<Edge*>();
+    this->bigraph = new BigraphProject::Bigraph<std::string, BigraphProject::AllocatorContainer<std::string>>();
     //initializeGraph(scene);
 }
 
@@ -123,18 +124,19 @@ void GraphWidget::scaleView(qreal scaleFactor)
 
 void GraphWidget::addNode(QString carName, bool isCar)
 {
+    // Физически создать узел графа
+    int id = this->bigraph->addVertex(BigraphProject::Vertex<std::string>(carName.toStdString(), isCar));
+
     // Получаем сцену графа
     QGraphicsScene *scene = this->scene();
     // Создаем объект узла
-    Node* node = new Node(this, generateId(), true, carName, isCar);
+    Node* node = new Node(this, id, true, carName, isCar);
     // Добавляем узел на сцену
     scene->addItem(node);
     // Задаем узлу позицию в центр виджета
     node->setPos(0, 0);
     // Добавляем узел в список узлов графа
     this->nodes.append(node);
-
-    // TODO физически создать узел графа
 }
 
 void GraphWidget::toggleCreateEdgesMode()
@@ -163,8 +165,14 @@ void GraphWidget::checkPressedNode(Node* pressedNode)
             // Считаем полученный узел таковым
             this->bufNode = pressedNode;
         else{
+            // Создаем ребро в контейнере
+            int id1 = this->bufNode->getId();
+            int id2 = pressedNode->getId();
+            int edgeId = this->bigraph->addEdge(bigraph->getVertexById(id1), bigraph->getVertexById(id2));
+
+
             // Иначе создаем ребро
-            Edge* newE = new Edge(this->bufNode, pressedNode, generateId());
+            Edge* newE = new Edge(this->bufNode, pressedNode, edgeId);
             // Получаем сцену графа
             QGraphicsScene *scene = this->scene();
             // Добавляем ребро на сцену
@@ -183,6 +191,11 @@ void GraphWidget::checkPressedNode(Node* pressedNode)
         // Проверяем, является ли текущий узел заказом, а не машиной
         // Если да, то..
         if(!pressedNode->getIsCar()){
+            // Удаляем узел из контейнера
+            int id = pressedNode->getId();
+            this->bigraph->delVertex(id);
+
+
             // Удаляем все ребра, связанные с ним
             QList<Edge *> e = pressedNode->edges();
             QList<int> ids = QList<int>();
@@ -222,6 +235,9 @@ void GraphWidget::checkPressedNode(Node* pressedNode)
 }
 
 void GraphWidget::clearEverything(){
+    this->bigraph->clear();
+
+
     // Сначала удаляем ребра
     int currentId = 0;
     while(!this->edges.isEmpty()){
@@ -253,6 +269,19 @@ bool GraphWidget::containsOrders(){
 
 void GraphWidget::saveNodes()
 {
+    // Записываем данные из контейнера в файл
+    try
+    {
+        std::ofstream myfile2;
+        myfile2.open("bigraphContainer.json");
+        myfile2 << *(this->bigraph);
+        myfile2.close();
+    }
+    catch(BigraphProject::ParsingJsonException json)
+    {
+        cout << *(this->bigraph);
+    }
+
     QFile saveFile(QStringLiteral("save.json"));
 
     if (!saveFile.open(QIODevice::WriteOnly)) {
@@ -277,38 +306,88 @@ void GraphWidget::saveNodes()
 
 void GraphWidget::loadNodes()
 {
-    QFile loadFile(QStringLiteral("save.json"));
-
-    if (!loadFile.open(QIODevice::ReadOnly)) {
-        qWarning("Couldn't open save file.");
+    // Создаем контейнер и организуем в него считывание данных
+    try
+    {
+        std::ifstream myfile2;
+        myfile2.open("bigraphContainer.json");
+        this->bigraph = new BigraphProject::Bigraph<std::string, BigraphProject::AllocatorContainer<std::string>>();
+        myfile2 >> &(this->bigraph);
+        myfile2.close();
     }
-    else{
-        QByteArray saveData = loadFile.readAll();
+    catch(BigraphProject::ParsingJsonException json)
+    {
+        cout << json.getJson();
+    }
+    if(!this->bigraph->isEmpty()){
+        QFile loadFile(QStringLiteral("save.json"));
 
-        QJsonDocument loadDoc(QJsonDocument::fromJson(saveData));
+        if (!loadFile.open(QIODevice::ReadOnly)) {
+            qWarning("Couldn't open save file.");
+        }
+        else{
+            QByteArray saveData = loadFile.readAll();
 
-        QJsonObject nodesPoses = loadDoc.object();
-        if(!nodesPoses.isEmpty() && nodesPoses.contains("nodes")){
-            QJsonArray nodesList = nodesPoses["nodes"].toArray();
-            this->nodes = QList<Node*>();
-            for(int i=0; i<nodesList.size(); i++){
-                QJsonObject jNode = nodesList[i].toObject();
-                if(jNode.contains("id")&&jNode.contains("x")&&jNode.contains("y")){
-                    Node* node = new Node(this, jNode["id"].toInt());
+            QJsonDocument loadDoc(QJsonDocument::fromJson(saveData));
+
+            QJsonObject nodesPoses = loadDoc.object();
+            if(!nodesPoses.isEmpty() && nodesPoses.contains("nodes")){
+                QJsonArray nodesList = nodesPoses["nodes"].toArray();
+                this->nodes = QList<Node*>();
+                for(int i=0; i<nodesList.size(); i++){
+                    QJsonObject jNode = nodesList[i].toObject();
+                    if(jNode.contains("id")&&jNode.contains("x")&&jNode.contains("y")){
+                        int id = jNode["id"].toInt();
+                        // эксепшен
+                        BigraphProject::Vertex<std::string> v = this->bigraph->getVertexById(id);
+
+                        Node* node = new Node(this, v.getId(), true, QString::fromStdString(v.getType()), v.getPart());
+                        // Получаем сцену графа
+                        QGraphicsScene *scene = this->scene();
+                        // Добавляем узел на сцену
+                        scene->addItem(node);
+                        node->setPos(qreal(jNode["x"].toDouble()), qreal(jNode["y"].toDouble()));
+                        // Добавляем узел в список узлов графа
+                        this->nodes.append(node);
+
+                    }
+                }
+                std::vector<BigraphProject::Edge<std::string>, BigraphProject::AllocatorContainer<std::string>> vList = this->bigraph->getEdges();
+                for(auto it = vList.begin(); it != vList.end(); it++){
+                    int edgeId = (*it).getId();
+                    int sourceId = (*it).getX().getId();
+                    int destId = (*it).getY().getId();
+
+                    // Иначе создаем ребро
+                    Edge* newE = new Edge(getNodewithId(sourceId), getNodewithId(destId), edgeId);
                     // Получаем сцену графа
                     QGraphicsScene *scene = this->scene();
-                    // Добавляем узел на сцену
-                    scene->addItem(node);
-                    node->setPos(qreal(jNode["x"].toDouble()), qreal(jNode["y"].toDouble()));
-                    // Добавляем узел в список узлов графа
-                    this->nodes.append(node);
-
+                    // Добавляем ребро на сцену
+                    scene->addItem(newE);
+                    // Добавляем ребро в список ребер
+                    this->edges.append(newE);
                 }
             }
+            loadFile.close();
         }
-        loadFile.close();
     }
+}
 
+Node* GraphWidget::getNodewithId(int id)
+{
+    for(int i=0; i<this->nodes.length(); i++){
+        if(this->nodes.at(i)->getId() == id)
+            return this->nodes.at(i);
+    }
+    return NULL;
+}
+Edge* GraphWidget::getEdgewithId(int id)
+{
+    for(int i=0; i<this->edges.length(); i++){
+        if(this->edges.at(i)->getId() == id)
+            return this->edges.at(i);
+    }
+    return NULL;
 }
 
 /*void GraphWidget::initializeGraph(QGraphicsScene *scene)

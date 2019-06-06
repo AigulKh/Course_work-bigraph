@@ -31,7 +31,7 @@ namespace BigraphProject
         ~Bigraph(void) {}
 
         std::vector<Vertex<T>, Allocator> getVertexes() { return this->V; }
-        std::vector<Vertex<T>, Allocator> getEdges() { return this->E; }
+        std::vector<Edge<T>, Allocator> getEdges() { return this->E; }
 
 		Iterator<T, Allocator> begin()
 		{
@@ -47,6 +47,10 @@ namespace BigraphProject
 		{
 			return Iterator<T, Allocator>(*this, nullptr);
 		}
+
+        bool isEmpty(){
+            return V.size() == 0;
+        }
 
 		int addVertex(Vertex<T> vertex)
 		{
@@ -67,18 +71,29 @@ namespace BigraphProject
 		std::vector<int> delVertex(int id)
 		{
 			std::vector<int> removeEdge;
+
+            // удаляем ребра
+            for(auto it = E.begin(); it != E.end(); it++){
+                if((*it).getX().getId() == id || (*it).getY().getId() == id)
+                    it = E.erase(it);
+            }
+            /*E.erase(
+                std::remove_if(E.begin(), E.end(),
+                            [&id](Edge<T> edge)
+                            { return edge.getX().getId() == id || edge.getY().getId() == id; }),
+                    E.end());*/
+
 			// удаляем узел
-			V.erase(std::remove_if(V.begin(), V.end(), 
+            /*V.erase(std::remove_if(V.begin(), V.end(),
 								[&id](Vertex<T> vertex)
 								{ return vertex.getId() == id; }),
-					V.end());
-
-			// удаляем ребра
-			E.erase(
-				std::remove_if(E.begin(), E.end(), 
-							[&id](Edge<T> edge)
-							{ return edge.getX().getId() == id || edge.getY().getId() == id; }),
-					E.end());
+                    V.end());*/
+            for(auto it = V.begin(); it != V.end(); it++){
+                if((*it).getId() == id){
+                    it = V.erase(it);
+                    break;
+                }
+            }
         }
 
 
@@ -136,6 +151,11 @@ namespace BigraphProject
 			}
 			return false;
 		}
+
+        void clear(){
+            V.clear();
+            E.clear();
+        }
 
 		void buildGraph() {
 			for (size_t i = 0; i < V.size(); i++) {

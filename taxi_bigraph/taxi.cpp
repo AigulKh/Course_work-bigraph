@@ -31,7 +31,7 @@ Taxi::Taxi(QWidget *parent, Qt::WindowFlags flags)
     connect(ui.createOrderButton,SIGNAL(clicked()),this,SLOT(createOrder()));
     connect(ui.exitButtonUser,SIGNAL(clicked()),this,SLOT(exitApp()));
 
-    checkAdminControlActivity();
+    //checkAdminControlActivity();
     currentState = calm;
 
     ui.graphicsView->loadNodes();

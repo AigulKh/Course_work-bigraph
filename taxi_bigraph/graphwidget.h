@@ -45,6 +45,7 @@
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <fstream>
 #include "container/Bigraph.h"
 #include "container/AllocatorContainer.h"
 
@@ -85,6 +86,8 @@ private:
     bool isCreatingEdges;   // Флаг состояния создания ребер
     bool isDeletingOrders;  // Флаг удаления заказов
     void initializeGraph(QGraphicsScene *scene);
+    Node* getNodewithId(int id);
+    Edge* getEdgewithId(int id);
 
     /*
     * Функция по генерации id для объектов
