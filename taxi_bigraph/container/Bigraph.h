@@ -23,21 +23,21 @@ namespace BigraphProject
 		std::vector<Vertex<T>, Allocator> V;
 		std::vector<Edge<T>, Allocator> E;
 
-		template <typename T, typename Allocator>
+        template <typename U, typename Allocator_>
 		friend class Iterator;
 
 	public:
-		Bigraph(void) {};
-		~Bigraph(void) {};
+        Bigraph(void) {}
+        ~Bigraph(void) {}
 
-		std::vector<Vertex<T>, Allocator> getVertexes() { return this->V };
-		std::vector<Vertex<T>, Allocator> getEdges() { return this->E };
+        std::vector<Vertex<T>, Allocator> getVertexes() { return this->V; }
+        std::vector<Vertex<T>, Allocator> getEdges() { return this->E; }
 
 		Iterator<T, Allocator> begin()
 		{
 			int firstId = 0;
 
-			std::vector<Vertex<T> >::iterator firstIt = std::min_element(V.begin(), V.end(),
+            typename std::vector<Vertex<T> >::iterator firstIt = std::min_element(V.begin(), V.end(),
 				[](Vertex<T>& x, Vertex<T>& y) {  return x.getId() < y.getId(); });
 
 			return Iterator<T, Allocator>(*this, &(*firstIt));
@@ -52,7 +52,7 @@ namespace BigraphProject
 		{
 			V.push_back(vertex);
 			return vertex.getId();
-		};
+        }
 
 		Vertex<T> getVertexById(int id) throw(VertexNotFoundException)
 		{
@@ -62,7 +62,7 @@ namespace BigraphProject
 					return (*i);
 			}
 			throw VertexNotFoundException(id);
-		};
+        }
 
 		std::vector<int> delVertex(int id)
 		{
@@ -79,14 +79,14 @@ namespace BigraphProject
 							[&id](Edge<T> edge)
 							{ return edge.getX().getId() == id || edge.getY().getId() == id; }),
 					E.end());
-		};
+        }
 
 
 		int addEdge(Edge<T> edge)
 		{
 			E.push_back(edge);
 			return edge.getId();
-		};
+        }
 
 		int addEdge(Vertex<T> x, Vertex<T> y) throw(BelongToOnePart, SameVertex)
 		{
@@ -103,7 +103,7 @@ namespace BigraphProject
 			Edge<T>* ed = new Edge<T>(x, y);
 			E.push_back(*ed);
 			return (*ed).getId();
-		};
+        }
 
 		bool isBigraph_() {
 			for (size_t i = 0; i < E.size(); i++) {
@@ -405,7 +405,7 @@ namespace BigraphProject
 		{
 			os << const_cast<Bigraph<T, Allocator>*>(&bigraph)->toJson() << std::endl;
 			return os;
-		};
+        }
 
 		friend std::istream& operator>>(std::istream& is, Bigraph<T, Allocator>** bigraph) throw(ParsingJsonException)
 		{
@@ -413,7 +413,7 @@ namespace BigraphProject
 			is >> str;
 			*bigraph = Bigraph<T, Allocator>::fromJson(str);
 			return is;
-		};
+        }
 	};
 }
 

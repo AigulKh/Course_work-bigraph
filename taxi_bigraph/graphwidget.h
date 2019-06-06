@@ -45,6 +45,8 @@
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include "container/Bigraph.h"
+#include "container/AllocatorContainer.h"
 
 class Node;
 class Edge;
@@ -75,6 +77,9 @@ protected:
 private:
     QList<Node*> nodes; // Контейнер отрисованных узлов
     QList<Edge*> edges; // Контейнер отрисованных ребер
+
+    // Контейнер
+    BigraphProject::Bigraph<std::string, BigraphProject::AllocatorContainer<std::string>> *bigraph;
     
     Node* bufNode;      // Буферный узел
     bool isCreatingEdges;   // Флаг состояния создания ребер
